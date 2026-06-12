@@ -232,7 +232,7 @@ function notify(message) {
 // XP SYSTEM
 // =====================================================
 
-function addBoostedXP(10); 
+function addXP(amount); 
 
     data.xp += amount;
 
