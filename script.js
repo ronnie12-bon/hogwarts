@@ -1,4 +1,3 @@
-// Global State Object to track user's data
 let state = {
     house: "",
     character: "",
@@ -9,14 +8,13 @@ let state = {
     isMusicPlaying: false
 };
 
-// MAGIC TOUCH: Listen for the very first click anywhere on the page to start the music early!
+// Start music automatically on the very first click anywhere on screen
 document.addEventListener('click', function() {
     if (!state.isMusicPlaying) {
         startAmbientMusic();
     }
-}, { once: true }); // '{ once: true }' ensures this check only runs on the very first click
+}, { once: true });
 
-// 1. Handle House Selection
 function selectHouse(houseName) {
     state.house = houseName;
     document.getElementById('displayHouse').innerText = houseName;
@@ -29,21 +27,16 @@ function selectHouse(houseName) {
 
     document.getElementById('houseMenu').classList.add('hidden');
     document.getElementById('charMenu').classList.remove('hidden');
-    
-    // Backup trigger: Make sure music plays if it hasn't already
     startAmbientMusic();
 }
 
-// 2. Handle Character Selection
 function selectCharacter(charName) {
     state.character = charName;
     document.getElementById('displayCharacter').innerText = charName;
-
     document.getElementById('charMenu').classList.add('hidden');
     document.getElementById('mainDashboard').classList.remove('hidden');
 }
 
-// Audio Control Functions
 function startAmbientMusic() {
     const audio = document.getElementById('bgMusic');
     audio.play().then(() => {
@@ -51,14 +44,13 @@ function startAmbientMusic() {
         const btn = document.getElementById('musicBtn');
         if (btn) btn.innerText = "🔊 Ambient: ON";
     }).catch(error => {
-        console.log("Audio waiting for user interaction to unlock.");
+        console.log("Audio waiting for user click.");
     });
 }
 
 function toggleMusic() {
     const audio = document.getElementById('bgMusic');
     const btn = document.getElementById('musicBtn');
-
     if (state.isMusicPlaying) {
         audio.pause();
         state.isMusicPlaying = false;
@@ -70,18 +62,39 @@ function toggleMusic() {
     }
 }
 
-// 3. Timer Control Logic
+// Adjustable Timer Control Logic
 function toggleTimer() {
     const btn = document.getElementById('timerBtn');
+    const inputsDiv = document.getElementById('timerInputs');
     
     if (state.isTimerRunning) {
+        // Pause the timer
         clearInterval(state.timerInterval);
         state.isTimerRunning = false;
         btn.innerText = "Cast Focus Spell";
+        inputsDiv.classList.remove('hidden'); // Show hours/mins adjusters again
     } else {
+        // Start the timer
+        let hrs = parseInt(document.getElementById('inputHours').value) || 0;
+        let mins = parseInt(document.getElementById('inputMinutes').value) || 0;
+        let secs = parseInt(document.getElementById('inputSeconds').value) || 0;
+        
+        // Calculate total seconds from user input
+        let totalSeconds = (hrs * 3600) + (mins * 60) + secs;
+        
+        // 5-minute restriction mechanism (300 seconds)
+        if (totalSeconds < 300) {
+            alert("🪄 A true wizard requires deeper focus! Please set the study session to at least 5 minutes.");
+            return;
+        }
+        
+        state.timerSeconds = totalSeconds;
         state.isTimerRunning = true;
         btn.innerText = "Muffle Countdown (Pause)";
+        inputsDiv.classList.add('hidden'); // Hide entry blocks during study session
         
+        updateTimerDisplay();
+
         state.timerInterval = setInterval(() => {
             if (state.timerSeconds > 0) {
                 state.timerSeconds--;
@@ -90,24 +103,35 @@ function toggleTimer() {
                 clearInterval(state.timerInterval);
                 state.isTimerRunning = false;
                 btn.innerText = "Cast Focus Spell";
+                inputsDiv.classList.remove('hidden');
                 
                 state.galleons += 42; 
                 document.getElementById('galleonCount').innerText = state.galleons;
                 
                 alert("🪄 Mischief Managed! You finished your focus session and earned 42 Galleons!");
                 
-                state.timerSeconds = 1500; 
-                updateTimerDisplay();
+                // Reset inputs back to default values
+                document.getElementById('inputHours').value = 0;
+                document.getElementById('inputMinutes').value = 25;
+                document.getElementById('inputSeconds').value = 0;
+                document.getElementById('timerDisplay').innerText = "00:25:00";
             }
         }, 1000);
     }
 }
 
 function updateTimerDisplay() {
-    let minutes = Math.floor(state.timerSeconds / 60);
+    let hours = Math.floor(state.timerSeconds / 3600);
+    let minutes = Math.floor((state.timerSeconds % 3600) / 60);
     let seconds = state.timerSeconds % 60;
-    let formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-    let formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
-    document.getElementById('timerDisplay').innerText = `${formattedMinutes}:${formattedSeconds}`;
+    
+    let fHours = hours < 10 ? "0" + hours : hours;
+    let fMinutes = minutes < 10 ? "0" + minutes : minutes;
+    let fSeconds = seconds < 10 ? "0" + seconds : seconds;
+    
+    document.getElementById('timerDisplay').innerText = `${fHours}:${fMinutes}:${fSeconds}`;
 }
+  
 
+                
+      
