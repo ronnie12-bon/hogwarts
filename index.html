@@ -1,63 +1,42 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hogwarts Focus RPG</title>
+<title>Hogwarts Focus | Hogwarts Express</title>
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="style.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
 
-<!-- BACKGROUND MUSIC -->
+<!-- MUSIC -->
 
-<audio
-id="backgroundMusic"
-loop>
-
-<source
-src="assets/audio/hogwarts.mp3"
-type="audio/mpeg">
-
+<audio id="backgroundMusic" loop>
+    <source src="ambient.mp3" type="audio/mpeg">
 </audio>
 
 <!-- NAVBAR -->
 
 <header class="navbar">
 
+```
 <div class="logo">
-⚡ Hogwarts Focus
+    ⚡ Hogwarts Focus
 </div>
 
 <nav>
-
-<a href="index.html">
-🚂 Express
-</a>
-
-<a href="diagon-alley.html">
-🏪 Diagon Alley
-</a>
-
-<a href="inventory.html">
-🎒 Inventory
-</a>
-
-<a href="achievements.html">
-🏆 Achievements
-</a>
-
-<a href="settings.html">
-⚙ Settings
-</a>
-
+    <a href="index.html">🚂 Express</a>
+    <a href="diagon-alley.html">🏪 Diagon Alley</a>
+    <a href="inventory.html">🎒 Inventory</a>
+    <a href="achievements.html">🏆 Achievements</a>
+    <a href="settings.html">⚙ Settings</a>
 </nav>
+```
 
 </header>
 
@@ -65,17 +44,21 @@ type="audio/mpeg">
 
 <section class="hero">
 
+```
 <div class="hero-overlay">
 
-<h1>
-🚂 Hogwarts Express
-</h1>
+    <h1>🚂 Hogwarts Express</h1>
 
-<p>
-Journey through the Scottish Highlands while mastering your studies.
-</p>
+    <p>
+        Journey through the Scottish Highlands while mastering your studies.
+    </p>
+
+    <button id="boardBtn">
+        Board The Express
+    </button>
 
 </div>
+```
 
 </section>
 
@@ -83,122 +66,32 @@ Journey through the Scottish Highlands while mastering your studies.
 
 <section class="dashboard">
 
+```
 <div class="card">
-
-<h3>⭐ Wizard Level</h3>
-
-<p id="wizardLevel">
-1
-</p>
-
+    <h3>⭐ Wizard Level</h3>
+    <p id="wizardLevel">1</p>
 </div>
 
 <div class="card">
-
-<h3>🎖 Title</h3>
-
-<p id="wizardTitle">
-First Year
-</p>
-
+    <h3>🎖 Title</h3>
+    <p id="wizardTitle">First Year</p>
 </div>
 
 <div class="card">
-
-<h3>💰 Galleons</h3>
-
-<p id="galleons">
-0
-</p>
-
+    <h3>💰 Galleons</h3>
+    <p id="galleons">0</p>
 </div>
 
 <div class="card">
-
-<h3>🏆 House Points</h3>
-
-<p id="housePoints">
-0
-</p>
-
+    <h3>🏆 House Points</h3>
+    <p id="housePoints">0</p>
 </div>
 
 <div class="card">
-
-<h3>📚 Study Minutes</h3>
-
-<p id="studyMinutes">
-0
-</p>
-
+    <h3>📚 Study Minutes</h3>
+    <p id="studyMinutes">0</p>
 </div>
-
-<div class="card">
-
-<h3>🔥 Streak</h3>
-
-<p id="streak">
-1 Day
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>🏰 House</h3>
-
-<p id="currentHouse">
-Not Selected
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>🏆 House Cup Rank</h3>
-
-<p id="houseCupRank">
-Student
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>✨ Patronus</h3>
-
-<p id="patronusDisplay">
-Not Unlocked
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>⭐ Prestige</h3>
-
-<p id="prestigeLevel">
-0
-</p>
-
-</div>
-
-</section>
-
-<!-- XP BAR -->
-
-<section class="xp-section">
-
-<h3>Wizard Progress</h3>
-
-<div class="xp-container">
-
-<div
-id="xpBar"
-class="xp-bar">
-</div>
-
-</div>
+```
 
 </section>
 
@@ -206,91 +99,27 @@ class="xp-bar">
 
 <section class="timer-section">
 
-<h2>
-⏳ Study Session
-</h2>
+```
+<h2>⏳ Study Session</h2>
 
-<div id="timer">
-
-25:00
-
-</div>
+<div id="timer">25:00</div>
 
 <div class="timer-buttons">
 
-<button id="startTimer">
+    <button id="startTimer">
+        Start
+    </button>
 
-Start
+    <button id="pauseTimer">
+        Pause
+    </button>
 
-</button>
-
-<button id="pauseTimer">
-
-Pause
-
-</button>
-
-<button id="resetTimer">
-
-Reset
-
-</button>
+    <button id="resetTimer">
+        Reset
+    </button>
 
 </div>
-
-<br>
-
-<div class="quick-buttons">
-
-<button onclick="startPomodoro()">
-🍅 Pomodoro
-</button>
-
-<button onclick="startShortBreak()">
-☕ Short Break
-</button>
-
-<button onclick="startLongBreak()">
-🌙 Long Break
-</button>
-
-</div>
-
-</section>
-
-<!-- ACTIONS -->
-
-<section class="actions">
-
-<button onclick="claimDailyReward()">
-
-🎁 Daily Reward
-
-</button>
-
-<button onclick="openMysteryBox()">
-
-🎁 Open Mystery Box
-
-</button>
-
-<button onclick="unlockPatronus()">
-
-✨ Unlock Patronus
-
-</button>
-
-<button onclick="enterChamber()">
-
-🐍 Chamber Of Secrets
-
-</button>
-
-<button onclick="toggleAudio()">
-
-🎵 Toggle Music
-
-</button>
+```
 
 </section>
 
@@ -298,18 +127,19 @@ Reset
 
 <div id="notificationContainer"></div>
 
-<script src="js/app.js"></script>
+<!-- SCRIPT -->
+
+<script src="script.js"></script>
+
+<script>
+
+document.getElementById("boardBtn").addEventListener("click", function() {
+
+    alert("Welcome aboard the Hogwarts Express!");
+
+});
+
+</script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-       
