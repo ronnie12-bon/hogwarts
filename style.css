@@ -19,7 +19,7 @@ body {
 }
 
 /* ==========================================
-   2. OVERLAYS & POP-UP MENUS (House & Character)
+   2. OVERLAYS & POP-UP MENUS
    ========================================== */
 .overlay {
     position: fixed;
@@ -27,7 +27,7 @@ body {
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: rgba(0, 0, 0, 0.2); 
+    background: rgba(0, 0, 0, 0.4); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,14 +35,14 @@ body {
 }
 
 .menu-box {
-    background: rgba(20, 20, 30, 0.65); 
+    background: rgba(20, 20, 30, 0.75); 
     border: 2px solid #c5a059; 
     border-radius: 12px;
-    padding: 40px;
+    padding: 35px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     width: 320px;
-    backdrop-filter: blur(3px); 
+    backdrop-filter: blur(5px); 
 }
 
 .vertical-buttons {
@@ -56,60 +56,71 @@ body {
    3. MAIN STUDY INTERFACE DASHBOARD
    ========================================== */
 .main-container {
-    background: rgba(20, 20, 30, 0.65); 
+    background: rgba(20, 20, 30, 0.7); 
     border: 2px solid #c5a059;
     border-radius: 15px;
-    padding: 30px;
+    padding: 25px;
     width: 380px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(3px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 .status-bar {
     display: flex;
     justify-content: space-around;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 10px;
-    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.header-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
 .audio-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     color: #e2d1b3;
-    border: 1px solid rgba(197, 160, 89, 0.4);
-    padding: 6px 12px;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    padding: 6px 14px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 12px;
-    margin-bottom: 15px;
+    font-size: 11px;
     font-family: 'Georgia', serif;
     transition: 0.2s;
 }
 
 .audio-btn:hover {
     background: rgba(197, 160, 89, 0.2);
-    box-shadow: 0 0 8px rgba(197, 160, 89, 0.4);
+    box-shadow: 0 0 6px rgba(197, 160, 89, 0.4);
+}
+
+.shop-toggle-btn {
+    border-color: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
 }
 
 .galleon-counter {
-    background: rgba(255, 215, 0, 0.15); 
+    background: rgba(255, 215, 0, 0.12); 
     padding: 8px;
     border-radius: 5px;
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 17px;
+    margin-bottom: 15px;
     color: #ffd700; 
-    border: 1px solid rgba(255, 215, 0, 0.4);
+    border: 1px solid rgba(255, 215, 0, 0.3);
     font-weight: bold;
 }
 
 /* ==========================================
-   4. FOCUS POMODORO TIMER DISPLAY & INPUTS
+   4. FOCUS TIMER DISPLAYS & INPUTS
    ========================================== */
 #timerDisplay {
-    font-size: 64px;
+    font-size: 58px;
     font-weight: bold;
-    margin: 20px 0;
+    margin: 15px 0;
     font-family: monospace;
     letter-spacing: 2px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
@@ -126,7 +137,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 14px;
+    font-size: 13px;
     color: #e2d1b3;
 }
 
@@ -135,11 +146,11 @@ body {
     border: 1px solid #c5a059;
     color: #ffffff;
     border-radius: 6px;
-    padding: 6px;
-    width: 50px;
+    padding: 5px;
+    width: 45px;
     text-align: center;
-    font-size: 16px;
-    margin-top: 5px;
+    font-size: 15px;
+    margin-top: 4px;
     font-family: monospace;
 }
 
@@ -157,38 +168,141 @@ body {
     color: white;
     border: 1px solid #c5a059;
     padding: 12px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     border-radius: 6px;
     transition: 0.2s;
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    width: 100%;
 }
 
 .magic-btn:hover {
-    box-shadow: 0 0 15px #c5a059;
-    transform: scale(1.02);
-    background-color: rgba(60, 60, 90, 0.9);
+    box-shadow: 0 0 12px #c5a059;
+    transform: scale(1.01);
 }
 
 .gryffindor-btn { background-color: rgba(116, 0, 1, 0.85); }
-.gryffindor-btn:hover { background-color: rgba(174, 0, 1, 1); }
-
 .ravenclaw-btn { background-color: rgba(14, 26, 64, 0.85); }
-.ravenclaw-btn:hover { background-color: rgba(34, 47, 91, 1); }
-
-.hufflepuff-btn { background-color: rgba(236, 185, 57, 0.85); color: black; text-shadow: none; }
-.hufflepuff-btn:hover { background-color: rgba(255, 200, 70, 1); }
-
+.hufflepuff-btn { background-color: rgba(236, 185, 57, 0.85); color: black; }
 .slytherin-btn { background-color: rgba(26, 71, 42, 0.85); }
-.slytherin-btn:hover { background-color: rgba(42, 98, 61, 1); }
 
 /* ==========================================
-   6. UTILITY CONTROLS
+   6. DIAGON ALLEY SHOP INTERFACE LAYOUT
+   ========================================== */
+.shop-box {
+    width: 360px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.shop-galleon-display {
+    color: #ffd700;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.shop-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.shop-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.item-cost {
+    font-size: 12px;
+    color: #ffd700;
+    margin-top: 2px;
+}
+
+.buy-btn {
+    background: #c5a059;
+    color: #14141e;
+    border: none;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.buy-btn:hover {
+    background: #ffd700;
+    box-shadow: 0 0 8px #ffd700;
+}
+
+.close-shop-btn {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================
+   7. INVENTORY HOGWARTS TRUNK SYSTEM
+   ========================================== */
+.inventory-section {
+    margin-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 15px;
+    text-align: left;
+}
+
+.inventory-section h3 {
+    font-size: 14px;
+    color: #e2d1b3;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.inventory-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+.inventory-tag {
+    background: rgba(197, 160, 89, 0.15);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    color: #ffffff;
+    font-style: normal;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+/* ==========================================
+   8. UTILITY CONTROLS
    ========================================== */
 .hidden { 
     display: none !important; 
 }
- 
-
-
