@@ -1,26 +1,96 @@
 // ==========================================
-// 1. GLOBAL APPLICATION STATE
+// 1. GLOBAL STATE & LOCAL STORAGE SAVING
 // ==========================================
 let state = {
+    wizardName: "",
     house: "",
     character: "",
     galleons: 0,
-    inventory: [], // Stores items purchased from the shop
+    inventory: [], 
     timerSeconds: 1500, 
     timerInterval: null,
     isTimerRunning: false,
     isMusicPlaying: false
 };
 
-// Start music automatically on the very first click anywhere on screen
+// Automatically run when the page opens to check for saved wizard data
+window.onload = function() {
+    loadSavedData();
+};
+
+// Save progress helper function
+function saveDataToVault() {
+    localStorage.setItem('hogwarts_wizardName', state.wizardName);
+    localStorage.setItem('hogwarts_galleons', state.galleons);
+    localStorage.setItem('hogwarts_inventory', JSON.stringify(state.inventory));
+}
+
+// Load data helper function
+function loadSavedData() {
+    let savedName = localStorage.getItem('hogwarts_wizardName');
+    let savedGold = localStorage.getItem('hogwarts_galleons');
+    let savedInventory = localStorage.getItem('hogwarts_inventory');
+
+    if (savedName) {
+        state.wizardName = savedName;
+        state.galleons = parseInt(savedGold) || 0;
+        state.inventory = savedInventory ? JSON.parse(savedInventory) : [];
+        
+        // Skip login screen directly to House Selection since they are already saved!
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('welcomeWizardName').innerText = state.wizardName;
+        document.getElementById('houseMenu').classList.remove('hidden');
+        
+        // Sync UI counters
+        document.getElementById('galleonCount').innerText = state.galleons;
+        updateInventoryUI();
+    }
+}
+
+// Start audio track on user first touch workaround
 document.addEventListener('click', function() {
-    if (!state.isMusicPlaying) {
+    if (!state.isMusicPlaying && state.wizardName !== "") {
         startAmbientMusic();
     }
 }, { once: true });
 
 // ==========================================
-// 2. SELECTION MENUS LOGIC
+// 2. SIMULATION GOOGLE LOGIN MECHANISM
+// ==========================================
+function handleGoogleLogin() {
+    let nameInput = prompt("Enter your Wizard or Google Account Name to link profile:");
+    
+    if (nameInput === null) return; // User pressed cancel
+    if (nameInput.trim() === "") {
+        alert("🪄 Please enter a valid name to authorize authentication!");
+        return;
+    }
+    
+    state.wizardName = nameInput.trim();
+    state.galleons = 0;
+    state.inventory = [];
+    
+    // Save brand new setup to memory
+    saveDataToVault();
+    
+    // Animate to next display
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('welcomeWizardName').innerText = state.wizardName;
+    document.getElementById('houseMenu').classList.remove('hidden');
+    
+    startAmbientMusic();
+}
+
+function handleLogout() {
+    if (confirm("Are you sure you want to log out? Your saved chest items and Galleons will be wiped from this browser context.")) {
+        clearInterval(state.timerInterval);
+        localStorage.clear();
+        location.reload(); // Reloads page back to completely blank setup
+    }
+}
+
+// ==========================================
+// 3. SELECTION MENUS LOGIC
 // ==========================================
 function selectHouse(houseName) {
     state.house = houseName;
@@ -41,12 +111,15 @@ function selectCharacter(charName) {
     state.character = charName;
     document.getElementById('displayCharacter').innerText = charName;
     
+    // Customize page header to greet user specifically
+    document.getElementById('dashboardTitle').innerText = `${state.wizardName}'s Study Room`;
+    
     document.getElementById('charMenu').classList.add('hidden');
     document.getElementById('mainDashboard').classList.remove('hidden');
 }
 
 // ==========================================
-// 3. BACKGROUND MUSIC CONTROLS
+// 4. BACKGROUND MUSIC CONTROLS
 // ==========================================
 function startAmbientMusic() {
     const audio = document.getElementById('bgMusic');
@@ -55,7 +128,7 @@ function startAmbientMusic() {
         const btn = document.getElementById('musicBtn');
         if (btn) btn.innerText = "🔊 Ambient: ON";
     }).catch(error => {
-        console.log("Audio waiting for user click.");
+        console.log("Audio waiting for interaction authorization.");
     });
 }
 
@@ -75,12 +148,11 @@ function toggleMusic() {
 }
 
 // ==========================================
-// 4. DIAGON ALLEY SHOP LOGIC
+// 5. DIAGON ALLEY SHOP LOGIC
 // ==========================================
 function toggleShop(isOpen) {
     const shopMenu = document.getElementById('shopMenu');
     if (isOpen) {
-        // Sync total gold count display in shop window
         document.getElementById('shopGalleonCount').innerText = state.galleons;
         shopMenu.classList.remove('hidden');
     } else {
@@ -94,36 +166,30 @@ function buyItem(itemName, cost) {
         return;
     }
     
-    // Deduct currency
     state.galleons -= cost;
-    
-    // Add item to internal storage array
     state.inventory.push(itemName);
     
-    // Refresh currency interface displays
+    // Commit adjustments straight to memory store
+    saveDataToVault();
+    
     document.getElementById('galleonCount').innerText = state.galleons;
     document.getElementById('shopGalleonCount').innerText = state.galleons;
-    
-    // Update dashboard inventory presentation
     updateInventoryUI();
     
-    alert(`🛍️ Successfully purchased: ${itemName}! It has been sent to your Hogwarts trunk.`);
+    alert(`🛍️ Successfully purchased: ${itemName}! It has been saved into your Hogwarts trunk.`);
 }
 
 function updateInventoryUI() {
     const listDiv = document.getElementById('inventoryList');
-    
     if (state.inventory.length === 0) {
         listDiv.innerText = "Your trunk is empty...";
         return;
     }
-    
-    // Map items into individual micro-badges
     listDiv.innerHTML = state.inventory.map(item => `<span class="inventory-tag">📦 ${item}</span>`).join('');
 }
 
 // ==========================================
-// 5. ADJUSTABLE POMODORO TIMER LOGIC
+// 6. ADJUSTABLE POMODORO TIMER LOGIC
 // ==========================================
 function toggleTimer() {
     const btn = document.getElementById('timerBtn');
@@ -141,6 +207,7 @@ function toggleTimer() {
         
         let totalSeconds = (hrs * 3600) + (mins * 60) + secs;
         
+        // 5-minute requirement verification check (300 seconds)
         if (totalSeconds < 300) {
             alert("🪄 A true wizard requires deeper focus! Please set the study session to at least 5 minutes.");
             return;
@@ -165,9 +232,13 @@ function toggleTimer() {
                 btn.innerText = "Cast Focus Spell";
                 inputsDiv.classList.remove('hidden');
                 
+                // Add currency rewards
                 state.galleons += minutesStudied; 
-                document.getElementById('galleonCount').innerText = state.galleons;
                 
+                // Save updated gold counts immediately
+                saveDataToVault();
+                
+                document.getElementById('galleonCount').innerText = state.galleons;
                 alert(`🪄 Mischief Managed! You finished your focus session and earned ${minutesStudied} Galleons!`);
                 
                 document.getElementById('inputHours').value = 0;
