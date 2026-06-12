@@ -42,7 +42,10 @@
                 <p>Companion: <span id="displayCharacter" style="font-weight: bold;">None</span></p>
             </div>
             
-            <button id="musicBtn" class="audio-btn" onclick="toggleMusic()">🔊 Ambient: ON</button>
+            <div class="header-controls">
+                <button id="musicBtn" class="audio-btn" onclick="toggleMusic()">🔊 Ambient: ON</button>
+                <button id="openShopBtn" class="audio-btn shop-toggle-btn" onclick="toggleShop(true)">🛍️ Diagon Alley</button>
+            </div>
 
             <div class="galleon-counter">
                 🪙 Vault Balance: <span id="galleonCount">0</span> Galleons
@@ -68,6 +71,58 @@
             <div id="timerDisplay">00:25:00</div>
             <button id="timerBtn" class="magic-btn" onclick="toggleTimer()">Cast Focus Spell</button>
         </section>
+        
+        <div class="inventory-section">
+            <h3>Your Trunk Inventory</h3>
+            <div id="inventoryList" class="inventory-list">Your trunk is empty...</div>
+        </div>
+    </div>
+
+    <div id="shopMenu" class="overlay hidden">
+        <div class="menu-box shop-box">
+            <h2>🛍️ Diagon Alley Bazaar</h2>
+            <p>Spend your hard-earned Galleons on magical equipment:</p>
+            
+            <div class="shop-galleon-display">
+                🪙 Current Funds: <span id="shopGalleonCount">0</span> Galleons
+            </div>
+
+            <div class="shop-items-container">
+                <div class="shop-item">
+                    <div class="item-details">
+                        <span class="item-name">🪄 Custom Holly Wand</span>
+                        <span class="item-cost">Cost: 50 Galleons</span>
+                    </div>
+                    <button class="buy-btn" onclick="buyItem('Custom Holly Wand', 50)">Buy</button>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-details">
+                        <span class="item-name">🧹 Nimbus 2000 Broomstick</span>
+                        <span class="item-cost">Cost: 150 Galleons</span>
+                    </div>
+                    <button class="buy-btn" onclick="buyItem('Nimbus 2000 Broomstick', 150)">Buy</button>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-details">
+                        <span class="item-name">📜 Advanced Potion Guide</span>
+                        <span class="item-cost">Cost: 30 Galleons</span>
+                    </div>
+                    <button class="buy-btn" onclick="buyItem('Advanced Potion Guide', 30)">Buy</button>
+                </div>
+
+                <div class="shop-item">
+                    <div class="item-details">
+                        <span class="item-name">🦉 Snowy Messenger Owl</span>
+                        <span class="item-cost">Cost: 100 Galleons</span>
+                    </div>
+                    <button class="buy-btn" onclick="buyItem('Snowy Messenger Owl', 100)">Buy</button>
+                </div>
+            </div>
+
+            <button class="magic-btn close-shop-btn" onclick="toggleShop(false)">Return to Study Room</button>
+        </div>
     </div>
 
     <audio id="bgMusic" src="ambient.mp3" loop></audio>
