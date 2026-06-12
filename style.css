@@ -27,7 +27,7 @@ body {
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); 
+    background: rgba(0, 0, 0, 0.45); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,14 +35,14 @@ body {
 }
 
 .menu-box {
-    background: rgba(20, 20, 30, 0.75); 
+    background: rgba(20, 20, 30, 0.8); 
     border: 2px solid #c5a059; 
     border-radius: 12px;
     padding: 35px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     width: 320px;
-    backdrop-filter: blur(5px); 
+    backdrop-filter: blur(6px); 
 }
 
 .vertical-buttons {
@@ -53,17 +53,91 @@ body {
 }
 
 /* ==========================================
-   3. MAIN STUDY INTERFACE DASHBOARD
+   3. GOOGLE STYLE LOGIN ELEMENTS
+   ========================================== */
+.login-box {
+    background: #ffffff !important;
+    color: #202124 !important;
+    border: 1px solid #dadce0 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+    backdrop-filter: none !important;
+}
+
+.google-logo-container {
+    font-family: 'Product Sans', 'Arial', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+.g-blue { color: #4285F4; }
+.g-red { color: #EA4335; }
+.g-yellow { color: #FBBC05; }
+.g-green { color: #34A853; }
+
+.login-box h2 {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 10px 0 5px 0;
+}
+
+.login-box p {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    color: #5f6368;
+    margin: 0 0 25px 0;
+}
+
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    background: #ffffff;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.google-login-btn:hover {
+    background: #f8f9fa;
+    box-shadow: 0 1px 3px rgba(60,64,67,0.3);
+}
+
+.google-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.login-footer {
+    font-size: 11px !important;
+    color: #70757a !important;
+    margin-top: 25px !important;
+    line-height: 1.4;
+}
+
+/* ==========================================
+   4. MAIN STUDY DASHBOARD SYSTEM
    ========================================== */
 .main-container {
-    background: rgba(20, 20, 30, 0.7); 
+    background: rgba(20, 20, 30, 0.75); 
     border: 2px solid #c5a059;
     border-radius: 15px;
     padding: 25px;
     width: 380px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
 }
 
 .status-bar {
@@ -77,7 +151,7 @@ body {
 .header-controls {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 12px;
 }
 
@@ -85,7 +159,7 @@ body {
     background: rgba(255, 255, 255, 0.08);
     color: #e2d1b3;
     border: 1px solid rgba(197, 160, 89, 0.3);
-    padding: 6px 14px;
+    padding: 6px 12px;
     border-radius: 20px;
     cursor: pointer;
     font-size: 11px;
@@ -95,12 +169,16 @@ body {
 
 .audio-btn:hover {
     background: rgba(197, 160, 89, 0.2);
-    box-shadow: 0 0 6px rgba(197, 160, 89, 0.4);
 }
 
 .shop-toggle-btn {
     border-color: rgba(255, 215, 0, 0.3);
     color: #ffd700;
+}
+
+.logout-btn {
+    border-color: rgba(234, 67, 53, 0.3);
+    color: #ea4335;
 }
 
 .galleon-counter {
@@ -115,7 +193,7 @@ body {
 }
 
 /* ==========================================
-   4. FOCUS TIMER DISPLAYS & INPUTS
+   5. TIMER DISPLAYS & INPUT GRIDS
    ========================================== */
 #timerDisplay {
     font-size: 58px;
@@ -161,7 +239,7 @@ body {
 }
 
 /* ==========================================
-   5. BUTTON STYLES & HOUSE THEMES
+   6. BUTTON THEMING & ACTIONS
    ========================================== */
 .magic-btn {
     background-color: rgba(40, 40, 60, 0.8);
@@ -187,7 +265,7 @@ body {
 .slytherin-btn { background-color: rgba(26, 71, 42, 0.85); }
 
 /* ==========================================
-   6. DIAGON ALLEY SHOP INTERFACE LAYOUT
+   7. DIAGON ALLEY SHOP CONTAINER LAYOUT
    ========================================== */
 .shop-box {
     width: 360px;
@@ -264,7 +342,7 @@ body {
 }
 
 /* ==========================================
-   7. INVENTORY HOGWARTS TRUNK SYSTEM
+   8. TRUNK STORAGE UI SECTIONS
    ========================================== */
 .inventory-section {
     margin-top: 25px;
@@ -301,7 +379,7 @@ body {
 }
 
 /* ==========================================
-   8. UTILITY CONTROLS
+   9. VISIBILITY HOOK UTIL
    ========================================== */
 .hidden { 
     display: none !important; 
