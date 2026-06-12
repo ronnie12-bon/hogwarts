@@ -1,22 +1,36 @@
+/* ==========================================
+   1. MAIN PAGE SETUP & BACKGROUND
+   ========================================== */
 body {
+    /* Points exactly to your uploaded Hogwarts Express image */
     background-image: url('hogwartsexpress.png');
+    
+    /* Makes the image stretch smoothly across the entire screen */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    color: #e2d1b3;
+    
+    color: #e2d1b3; /* Soft wizarding gold/parchment color text */
     font-family: 'Georgia', serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
-/* Menu Layouts */
+
+/* ==========================================
+   2. OVERLAYS & POP-UP MENUS (House & Character)
+   ========================================== */
 .overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(10, 10, 15, 0.95);
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(10, 10, 15, 0.85); /* Dark tint overlay */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,13 +38,14 @@ body {
 }
 
 .menu-box {
-    background: #1e1e28;
-    border: 2px solid #c5a059;
+    background: rgba(30, 30, 40, 0.9); /* See-through dark glass frame */
+    border: 2px solid #c5a059; /* Gold border line */
     border-radius: 12px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 0 25px rgba(197, 160, 89, 0.2);
+    box-shadow: 0 0 25px rgba(197, 160, 89, 0.4);
     width: 320px;
+    backdrop-filter: blur(5px); /* Elegant blur effect on the background image */
 }
 
 .vertical-buttons {
@@ -40,44 +55,53 @@ body {
     margin-top: 20px;
 }
 
-/* Dashboard Layout */
+/* ==========================================
+   3. MAIN STUDY INTERFACE DASHBOARD
+   ========================================== */
 .main-container {
-    background: #1e1e28;
+    background: rgba(30, 30, 40, 0.9);
     border: 2px solid #c5a059;
     border-radius: 15px;
     padding: 30px;
     width: 380px;
     text-align: center;
-    box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+    backdrop-filter: blur(5px);
 }
 
 .status-bar {
     display: flex;
     justify-content: space-around;
-    border-bottom: 1px solid #3a3a4a;
+    border-bottom: 1px solid #4a4a5a;
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
 
 .galleon-counter {
-    background: #272738;
+    background: rgba(39, 39, 56, 0.8);
     padding: 8px;
     border-radius: 5px;
     font-size: 18px;
     margin-bottom: 20px;
-    color: #ffd700;
+    color: #ffd700; /* Bright gold text for currency */
+    border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
-/* Timer Styling */
+/* ==========================================
+   4. FOCUS POMODORO TIMER DISPLAY
+   ========================================== */
 #timerDisplay {
     font-size: 64px;
     font-weight: bold;
     margin: 20px 0;
     font-family: monospace;
     letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(226, 209, 179, 0.3);
 }
 
-/* Interactive Buttons */
+/* ==========================================
+   5. BUTTON STYLES & HOUSE THEMES
+   ========================================== */
 .magic-btn {
     background-color: #2a2a3a;
     color: white;
@@ -90,15 +114,22 @@ body {
 }
 
 .magic-btn:hover {
-    box-shadow: 0 0 8px #c5a059;
+    box-shadow: 0 0 12px #c5a059;
     transform: scale(1.02);
 }
 
-/* Specific House Colors */
+/* Specific Houses Theme Colors */
 .gryffindor-btn { background-color: #740001; }
 .ravenclaw-btn { background-color: #0e1a40; }
 .hufflepuff-btn { background-color: #ecb939; color: black; }
 .slytherin-btn { background-color: #1a472a; }
 
-/* Dynamic hiding utility */
-.hidden { display: none !important; }
+/* ==========================================
+   6. UTILITY CONTROLS
+   ========================================== */
+/* Automatically hides components when triggered by script.js */
+.hidden { 
+    display: none !important; 
+}
+  
+
