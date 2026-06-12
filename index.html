@@ -1,50 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hogwarts Focus | Hogwarts Express</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Hogwarts Focus RPG</title>
 
 <link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-<div id="notificationContainer"></div>
-<!-- Acceptance Letter -->
 
-<div id="letterModal" class="letter-modal">
+<!-- BACKGROUND MUSIC -->
 
-<div class="letter">
+<audio
+id="backgroundMusic"
+loop>
 
-<h1>⚡ Hogwarts Focus</h1>
+<source
+src="assets/audio/hogwarts.mp3"
+type="audio/mpeg">
 
-<p>
-Dear Student,
-</p>
+</audio>
 
-<p>
-We are pleased to inform you that you have been accepted to Hogwarts Focus School of Magical Productivity.
-</p>
-
-<p>
-Study hard, earn Galleons, unlock magical items, and become a Hogwarts Legend.
-</p>
-
-<button id="enterHogwarts">
-Board the Express
-</button>
-
-</div>
-
-</div>
-
-<!-- Navbar -->
+<!-- NAVBAR -->
 
 <header class="navbar">
 
@@ -54,63 +37,79 @@ Board the Express
 
 <nav>
 
-<a href="index.html">🚂 Express</a>
+<a href="index.html">
+🚂 Express
+</a>
 
-<a href="diagon-alley.html">🏪 Diagon Alley</a>
+<a href="diagon-alley.html">
+🏪 Diagon Alley
+</a>
 
-<a href="inventory.html">🎒 Inventory</a>
+<a href="inventory.html">
+🎒 Inventory
+</a>
 
-<a href="achievements.html">🏆 Achievements</a>
+<a href="achievements.html">
+🏆 Achievements
+</a>
 
-<a href="settings.html">⚙ Settings</a>
+<a href="settings.html">
+⚙ Settings
+</a>
 
 </nav>
 
 </header>
 
-<!-- Hero Section -->
+<!-- HERO -->
 
 <section class="hero">
 
-<div class="rain-layer"></div>
+<div class="hero-overlay">
 
-<div class="fog-layer"></div>
-
-<div class="hero-overlay"></div>
-
-<div class="hero-content">
-
-<h1>Study Aboard The Hogwarts Express</h1>
+<h1>
+🚂 Hogwarts Express
+</h1>
 
 <p>
-Travel through the Scottish Highlands while earning magical rewards.
+Journey through the Scottish Highlands while mastering your studies.
 </p>
-
-<div class="hero-buttons">
-
-<a href="#timerSection" class="btn">
-Begin Studying
-</a>
-
-<a href="diagon-alley.html" class="btn secondary">
-Visit Diagon Alley
-</a>
-
-</div>
 
 </div>
 
 </section>
 
-<!-- Dashboard -->
+<!-- DASHBOARD -->
 
 <section class="dashboard">
 
 <div class="card">
 
+<h3>⭐ Wizard Level</h3>
+
+<p id="wizardLevel">
+1
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>🎖 Title</h3>
+
+<p id="wizardTitle">
+First Year
+</p>
+
+</div>
+
+<div class="card">
+
 <h3>💰 Galleons</h3>
 
-<p id="galleons">0</p>
+<p id="galleons">
+0
+</p>
 
 </div>
 
@@ -118,7 +117,9 @@ Visit Diagon Alley
 
 <h3>🏆 House Points</h3>
 
-<p id="housePoints">0</p>
+<p id="housePoints">
+0
+</p>
 
 </div>
 
@@ -126,7 +127,9 @@ Visit Diagon Alley
 
 <h3>📚 Study Minutes</h3>
 
-<p id="studyMinutes">0</p>
+<p id="studyMinutes">
+0
+</p>
 
 </div>
 
@@ -134,252 +137,166 @@ Visit Diagon Alley
 
 <h3>🔥 Streak</h3>
 
-<p id="streak">0 Days</p>
+<p id="streak">
+1 Day
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>🏰 House</h3>
+
+<p id="currentHouse">
+Not Selected
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>🏆 House Cup Rank</h3>
+
+<p id="houseCupRank">
+Student
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>✨ Patronus</h3>
+
+<p id="patronusDisplay">
+Not Unlocked
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>⭐ Prestige</h3>
+
+<p id="prestigeLevel">
+0
+</p>
 
 </div>
 
 </section>
 
-<!-- Study Cabin -->
+<!-- XP BAR -->
 
-<section class="study-cabin">
+<section class="xp-section">
 
-<div class="cabin-window">
+<h3>Wizard Progress</h3>
 
-<div class="window-view"></div>
+<div class="xp-container">
 
-</div>
-
-<div class="desk">
-
-<div class="spellbook">
-
-<h2>📖 Spellbook Notes</h2>
-
-<textarea
-id="notes"
-placeholder="Write your magical study notes here..."
-></textarea>
-
-</div>
-
-<div class="candle-area">
-
-<div class="candle">
-
-<div class="flame"></div>
-
-</div>
-
+<div
+id="xpBar"
+class="xp-bar">
 </div>
 
 </div>
 
 </section>
 
-<!-- Timer -->
+<!-- TIMER -->
 
-<section id="timerSection" class="timer-section">
+<section class="timer-section">
 
-<h2>⏳ Time-Turner Focus Session</h2>
+<h2>
+⏳ Study Session
+</h2>
 
-<div id="timer" class="timer-display">
+<div id="timer">
+
 25:00
+
 </div>
 
-<div class="timer-controls">
+<div class="timer-buttons">
 
 <button id="startTimer">
-▶ Start
+
+Start
+
 </button>
 
 <button id="pauseTimer">
-⏸ Pause
+
+Pause
+
 </button>
 
 <button id="resetTimer">
-↻ Reset
+
+Reset
+
 </button>
 
 </div>
 
-<div class="timer-info">
+<br>
 
-<p>
-Every minute studied earns:
-</p>
+<div class="quick-buttons">
 
-<h3>
-💰 +1 Galleon
-</h3>
+<button onclick="startPomodoro()">
+🍅 Pomodoro
+</button>
 
-<h3>
-🏆 +1 House Point
-</h3>
+<button onclick="startShortBreak()">
+☕ Short Break
+</button>
+
+<button onclick="startLongBreak()">
+🌙 Long Break
+</button>
 
 </div>
 
 </section>
 
-<!-- Audio Mixer -->
+<!-- ACTIONS -->
 
-<section class="audio-section">
+<section class="actions">
 
-<h2>🎵 Magical Ambience Mixer</h2>
+<button onclick="claimDailyReward()">
 
-<div class="audio-grid">
+🎁 Daily Reward
 
-<div class="audio-card">
-
-<h3>🚂 Train Sounds</h3>
-
-<button id="trainToggle">
-Play
 </button>
 
-</div>
+<button onclick="openMysteryBox()">
 
-<div class="audio-card">
+🎁 Open Mystery Box
 
-<h3>🌧 Rain</h3>
-
-<button id="rainToggle">
-Play
 </button>
 
-</div>
+<button onclick="unlockPatronus()">
 
-<div class="audio-card">
+✨ Unlock Patronus
 
-<h3>🔥 Fireplace</h3>
-
-<button id="fireToggle">
-Play
 </button>
 
-</div>
+<button onclick="enterChamber()">
 
-<div class="audio-card">
+🐍 Chamber Of Secrets
 
-<h3>🦉 Owl Sounds</h3>
-
-<button id="owlToggle">
-Play
 </button>
 
-</div>
+<button onclick="toggleAudio()">
 
-</div>
+🎵 Toggle Music
+
+</button>
 
 </section>
 
-<!-- House Section -->
+<!-- NOTIFICATIONS -->
 
-<section class="house-section">
-
-<h2>Your Hogwarts House</h2>
-
-<div id="currentHouse" class="house-display">
-Not Selected
-</div>
-
-<a href="settings.html" class="btn">
-Choose House
-</a>
-
-</section>
-
-<!-- Progress -->
-
-<section class="progress-section">
-
-<h2>Wizard Progress</h2>
-
-<div class="progress-card">
-
-<div class="progress-label">
-
-<span>Current Rank</span>
-
-<span id="rank">
-First Year
-</span>
-
-</div>
-
-<div class="progress-bar">
-
-<div id="rankProgress" class="progress-fill"></div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- Daily Challenge -->
-
-<section class="challenge-section">
-
-<h2>📜 Daily Challenge</h2>
-
-<div class="challenge-card">
-
-<p>
-Study for 30 minutes today.
-</p>
-
-<p>
-Reward:
-</p>
-
-<h3>
-💰 +50 Galleons
-</h3>
-
-</div>
-
-</section>
-
-<!-- Floating Particles -->
-
-<div id="particles"></div>
-
-<!-- Hidden Audio -->
-
-<audio id="trainAudio" loop>
-<source src="assets/ambient.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="rainAudio" loop>
-<source src="assets/rain.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="fireAudio" loop>
-<source src="assets/fireplace.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="owlAudio" loop>
-<source src="assets/owl.mp3" type="audio/mpeg">
-</audio>
-
-<!-- Footer -->
-
-<footer>
-
-<div class="footer-content">
-
-<p>
-⚡ Hogwarts Focus
-</p>
-
-<p>
-Study • Earn • Collect • Become a Hogwarts Legend
-</p>
-
-</div>
-
-</footer>
+<div id="notificationContainer"></div>
 
 <script src="js/app.js"></script>
 
@@ -390,6 +307,9 @@ Study • Earn • Collect • Become a Hogwarts Legend
 
 
 
-      
+
+
+
+
 
        
