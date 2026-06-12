@@ -1,150 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogwarts Study Room</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hogwarts Study Focus</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <div id="loginScreen" class="overlay">
-        <div class="menu-box login-box">
-            <div class="google-logo-container">
-                <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
-            </div>
-            <h2>Sign in</h2>
-            <p>to continue to Hogwarts Study Suite</p>
-            
-            <button class="google-login-btn" onclick="handleGoogleLogin()">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Icon" class="google-icon">
-                <span>Sign in with Google</span>
-            </button>
-            
-            <p class="login-footer">To track your wizarding progress and save your Gringotts vault balance securely.</p>
-        </div>
-    </div>
+<header>
 
-    <div id="houseMenu" class="overlay hidden">
-        <div class="menu-box">
-            <h2>Select Your Hogwarts House</h2>
-            <p>Welcome, <span id="welcomeWizardName" style="color: #ffd700; font-weight: bold;">Wizard</span>! Choose your allegiance:</p>
-            <div class="vertical-buttons">
-                <button class="magic-btn gryffindor-btn" onclick="selectHouse('Gryffindor')">Gryffindor</button>
-                <button class="magic-btn ravenclaw-btn" onclick="selectHouse('Ravenclaw')">Ravenclaw</button>
-                <button class="magic-btn hufflepuff-btn" onclick="selectHouse('Hufflepuff')">Hufflepuff</button>
-                <button class="magic-btn slytherin-btn" onclick="selectHouse('Slytherin')">Slytherin</button>
-            </div>
-        </div>
-    </div>
+<div class="logo">
+⚡ Hogwarts Focus
+</div>
 
-    <div id="charMenu" class="overlay hidden">
-        <div class="menu-box">
-            <h2>Select Your Study Companion</h2>
-            <p>Who will be studying alongside you today?</p>
-            <div class="vertical-buttons">
-                <button class="magic-btn" onclick="selectCharacter('Harry')">Harry Potter</button>
-                <button class="magic-btn" onclick="selectCharacter('Hermione')">Hermione Granger</button>
-                <button class="magic-btn" onclick="selectCharacter('Ron')">Ron Weasley</button>
-                <button class="magic-btn" onclick="selectCharacter('Gringotts Goblin')">Gringotts Goblin</button>
-            </div>
-        </div>
-    </div>
+<nav>
+<a href="#">Library</a>
+<a href="#">Express</a>
+<a href="#">Tower</a>
+<a href="#">Ambience</a>
+</nav>
 
-    <div id="mainDashboard" class="main-container hidden">
-        <header>
-            <h1 id="dashboardTitle">Hogwarts Great Hall</h1>
-            <div class="status-bar">
-                <p>House: <span id="displayHouse" style="font-weight: bold;">None</span></p>
-                <p>Companion: <span id="displayCharacter" style="font-weight: bold;">None</span></p>
-            </div>
-            
-            <div class="header-controls">
-                <button id="musicBtn" class="audio-btn" onclick="toggleMusic()">🔊 Ambient: ON</button>
-                <button id="openShopBtn" class="audio-btn shop-toggle-btn" onclick="toggleShop(true)">🛍️ Diagon Alley</button>
-                <button class="audio-btn logout-btn" onclick="handleLogout()">🚪 Logout</button>
-            </div>
+</header>
 
-            <div class="galleon-counter">
-                🪙 Vault Balance: <span id="galleonCount">0</span> Galleons
-            </div>
-        </header>
+<section class="hero">
 
-        <section class="timer-section">
-            <div id="timerInputs" class="timer-inputs">
-                <div class="input-group">
-                    <label>Hr</label>
-                    <input type="number" id="inputHours" min="0" max="23" value="0">
-                </div>
-                <div class="input-group">
-                    <label>Min</label>
-                    <input type="number" id="inputMinutes" min="0" max="59" value="25">
-                </div>
-                <div class="input-group">
-                    <label>Sec</label>
-                    <input type="number" id="inputSeconds" min="0" max="59" value="0">
-                </div>
-            </div>
+<div class="overlay">
 
-            <div id="timerDisplay">00:25:00</div>
-            <button id="timerBtn" class="magic-btn" onclick="toggleTimer()">Cast Focus Spell</button>
-        </section>
-        
-        <div class="inventory-section">
-            <h3>Your Trunk Inventory</h3>
-            <div id="inventoryList" class="inventory-list">Your trunk is empty...</div>
-        </div>
-    </div>
+<h1>Study Aboard The Hogwarts Express</h1>
 
-    <div id="shopMenu" class="overlay hidden">
-        <div class="menu-box shop-box">
-            <h2>🛍️ Diagon Alley Bazaar</h2>
-            <p>Spend your hard-earned Galleons on magical equipment:</p>
-            
-            <div class="shop-galleon-display">
-                🪙 Current Funds: <span id="shopGalleonCount">0</span> Galleons
-            </div>
+<p>
+Travel through the Scottish Highlands while focusing on your work.
+</p>
 
-            <div class="shop-items-container">
-                <div class="shop-item">
-                    <div class="item-details">
-                        <span class="item-name">🪄 Custom Holly Wand</span>
-                        <span class="item-cost">Cost: 50 Galleons</span>
-                    </div>
-                    <button class="buy-btn" onclick="buyItem('Custom Holly Wand', 50)">Buy</button>
-                </div>
+<button id="startBtn">
+Start Studying
+</button>
 
-                <div class="shop-item">
-                    <div class="item-details">
-                        <span class="item-name">🧹 Nimbus 2000 Broomstick</span>
-                        <span class="item-cost">Cost: 150 Galleons</span>
-                    </div>
-                    <button class="buy-btn" onclick="buyItem('Nimbus 2000 Broomstick', 150)">Buy</button>
-                </div>
+</div>
 
-                <div class="shop-item">
-                    <div class="item-details">
-                        <span class="item-name">📜 Advanced Potion Guide</span>
-                        <span class="item-cost">Cost: 30 Galleons</span>
-                    </div>
-                    <button class="buy-btn" onclick="buyItem('Advanced Potion Guide', 30)">Buy</button>
-                </div>
+</section>
 
-                <div class="shop-item">
-                    <div class="item-details">
-                        <span class="item-name">🦉 Snowy Messenger Owl</span>
-                        <span class="item-cost">Cost: 100 Galleons</span>
-                    </div>
-                    <button class="buy-btn" onclick="buyItem('Snowy Messenger Owl', 100)">Buy</button>
-                </div>
-            </div>
+<section class="timer-section">
 
-            <button class="magic-btn close-shop-btn" onclick="toggleShop(false)">Return to Study Room</button>
-        </div>
-    </div>
+<h2>Focus Timer</h2>
 
-    <audio id="bgMusic" src="ambient.mp3" loop></audio>
+<div id="timer">25:00</div>
 
-    <script src="script.js"></script>
+<div class="controls">
+<button id="play">▶ Start</button>
+<button id="reset">↻ Reset</button>
+</div>
+
+</section>
+
+<section class="audio-section">
+
+<h2>Train Ambience</h2>
+
+<audio id="audio" loop>
+<source src="ambient.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn">
+🎵 Play Ambience
+</button>
+
+</section>
+
+<section class="notes">
+
+<h2>Study Notes</h2>
+
+<textarea placeholder="Write your notes here..."></textarea>
+
+</section>
+
+<footer>
+
+Made for Magical Productivity ✨
+
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
+
+      
+
+       
