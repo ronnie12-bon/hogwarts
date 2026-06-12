@@ -1,0 +1,33 @@
+body {
+    background-color: #1a1a24; /* Dark magical night color */
+    color: #e2d1b3; /* Soft gold/parchment text */
+    font-family: 'Georgia', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.main-container {
+    background: rgba(30, 30, 40, 0.85);
+    border: 2px solid #c5a059; /* Gold border */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+    text-align: center;
+}
+
+.magic-btn {
+    background-color: #740001; /* Gryffindor Red */
+    color: white;
+    border: 1px solid #c5a059;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.magic-btn:hover {
+    background-color: #ae0001;
+    box-shadow: 0 0 10px #c5a059;
+}
