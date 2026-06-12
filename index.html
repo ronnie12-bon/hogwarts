@@ -39,8 +39,11 @@
             <h1>Hogwarts Great Hall</h1>
             <div class="status-bar">
                 <p>House: <span id="displayHouse" style="font-weight: bold;">None</span></p>
-                <p>Companion: <span id="displayCharacter" style="font-weight: bold; color: #e2d1b3;">None</span></p>
+                <p>Companion: <span id="displayCharacter" style="font-weight: bold;">None</span></p>
             </div>
+            
+            <button id="musicBtn" class="audio-btn" onclick="toggleMusic()">🔊 Ambient: ON</button>
+
             <div class="galleon-counter">
                 🪙 Vault Balance: <span id="galleonCount">0</span> Galleons
             </div>
@@ -52,6 +55,10 @@
         </section>
     </div>
 
+    <audio id="bgMusic" src="ambient.mp3" loop></audio>
+
     <script src="script.js"></script>
 </body>
 </html>
+
+ 
