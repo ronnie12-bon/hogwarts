@@ -8,7 +8,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     
-    color: #ffffff; /* Swapped to pure white so it stands out easily against the image */
+    color: #ffffff; 
     font-family: 'Georgia', serif;
     display: flex;
     justify-content: center;
@@ -27,7 +27,7 @@ body {
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: rgba(0, 0, 0, 0.2); /* MUCH lighter tint so you can see the background perfectly */
+    background: rgba(0, 0, 0, 0.2); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,14 +35,14 @@ body {
 }
 
 .menu-box {
-    background: rgba(20, 20, 30, 0.65); /* Highly transparent magical glass effect */
+    background: rgba(20, 20, 30, 0.65); 
     border: 2px solid #c5a059; 
     border-radius: 12px;
     padding: 40px;
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     width: 320px;
-    backdrop-filter: blur(3px); /* Subtle blur so text stays easy to read over the train image */
+    backdrop-filter: blur(3px); 
 }
 
 .vertical-buttons {
@@ -56,7 +56,7 @@ body {
    3. MAIN STUDY INTERFACE DASHBOARD
    ========================================== */
 .main-container {
-    background: rgba(20, 20, 30, 0.65); /* Matches the transparent glass effect */
+    background: rgba(20, 20, 30, 0.65); 
     border: 2px solid #c5a059;
     border-radius: 15px;
     padding: 30px;
@@ -74,8 +74,26 @@ body {
     margin-bottom: 15px;
 }
 
+.audio-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e2d1b3;
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-bottom: 15px;
+    font-family: 'Georgia', serif;
+    transition: 0.2s;
+}
+
+.audio-btn:hover {
+    background: rgba(197, 160, 89, 0.2);
+    box-shadow: 0 0 8px rgba(197, 160, 89, 0.4);
+}
+
 .galleon-counter {
-    background: rgba(255, 215, 0, 0.15); /* Translucent gold vault display */
+    background: rgba(255, 215, 0, 0.15); 
     padding: 8px;
     border-radius: 5px;
     font-size: 18px;
@@ -94,7 +112,7 @@ body {
     margin: 20px 0;
     font-family: monospace;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Dark shadow behind numbers so you can read it easily */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
 }
 
 /* ==========================================
@@ -138,6 +156,6 @@ body {
 .hidden { 
     display: none !important; 
 }
-
+ 
 
 
