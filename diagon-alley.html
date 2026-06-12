@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Diagon Alley | Hogwarts Focus</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+.shop-page{
+padding:140px 50px 80px;
+max-width:1400px;
+margin:auto;
+}
+
+.shop-header{
+text-align:center;
+margin-bottom:50px;
+}
+
+.shop-header h1{
+font-family:'Cinzel',serif;
+font-size:3rem;
+color:#d4af37;
+}
+
+.balance{
+font-size:1.5rem;
+margin-top:15px;
+}
+
+.category{
+margin-top:60px;
+}
+
+.category h2{
+font-family:'Cinzel',serif;
+color:#d4af37;
+margin-bottom:20px;
+}
+
+.shop-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:20px;
+}
+
+.item{
+background:#141419;
+border:1px solid rgba(212,175,55,.25);
+padding:20px;
+border-radius:12px;
+}
+
+.item h3{
+margin-bottom:10px;
+}
+
+.price{
+color:#d4af37;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.item button{
+width:100%;
+padding:12px;
+border:none;
+cursor:pointer;
+border-radius:8px;
+font-weight:bold;
+}
+
+.buy{
+background:#d4af37;
+color:black;
+}
+
+.owned{
+background:#2e7d32;
+color:white;
+}
+
+.locked{
+background:#6b1b1b;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+⚡ Hogwarts Focus
+</div>
+
+<nav>
+
+<a href="index.html">🚂 Express</a>
+<a href="diagon-alley.html">🏪 Diagon Alley</a>
+<a href="inventory.html">🎒 Inventory</a>
+<a href="achievements.html">🏆 Achievements</a>
+<a href="settings.html">⚙ Settings</a>
+
+</nav>
+
+</header>
+
+<div class="shop-page">
+
+<div class="shop-header">
+
+<h1>🏪 Diagon Alley</h1>
+
+<div class="balance">
+💰 Galleons:
+<span id="galleonBalance">0</span>
+</div>
+
+</div>
+
+<!-- HONEYDUKES -->
+
+<section class="category">
+
+<h2>🍬 Honeydukes</h2>
+
+<div id="snacks" class="shop-grid"></div>
+
+</section>
+
+<!-- WANDS -->
+
+<section class="category">
+
+<h2>🪄 Ollivanders</h2>
+
+<div id="wands" class="shop-grid"></div>
+
+</section>
+
+<!-- BROOMS -->
+
+<section class="category">
+
+<h2>🧹 Quality Quidditch Supplies</h2>
+
+<div id="brooms" class="shop-grid"></div>
+
+</section>
+
+<!-- ANIMALS -->
+
+<section class="category">
+
+<h2>🦉 Magical Menagerie</h2>
+
+<div id="animals" class="shop-grid"></div>
+
+</section>
+
+</div>
+
+<script>
+
+// =====================================
+// LOAD DATA
+// =====================================
+
+const STORAGE_KEY = "hogwartsFocusData";
+
+let data = JSON.parse(
+localStorage.getItem(STORAGE_KEY)
+);
+
+if(!data){
+
+data={
+galleons:0,
+inventory:[]
+};
+
+}
+
+// =====================================
+// ITEMS
+// =====================================
+
+const snacks=[
+
+["Chocolate Frog",20],
+["Fizzing Whizzbees",25],
+["Bertie Bott's Beans",30],
+["Peppermint Toad",35],
+["Acid Pop",40],
+["Pumpkin Pasty",45],
+["Cauldron Cake",50],
+["Licorice Wand",60],
+["Treacle Tart",75],
+["Sugar Quill",100]
+
+];
+
+const wands=[
+
+["Oak Wand",1000],
+["Cherry Wand",1200],
+["Willow Wand",1500],
+["Phoenix Core Wand",1800],
+["Dragon Heartstring Wand",2200],
+["Unicorn Hair Wand",2500],
+["Elder Wand Replica",5000]
+
+];
+
+const brooms=[
+
+["Cleansweep One",1000],
+["Cleansweep Seven",1500],
+["Comet 260",2000],
+["Nimbus 2000",3500],
+["Nimbus 2001",5000],
+["Firebolt",10000],
+["Firebolt Supreme",20000]
+
+];
+
+const animals=[
+
+["Barn Owl",2000],
+["Snowy Owl",2500],
+["Black Cat",3000],
+["Toad",3500],
+["Kneazle",5000],
+["Pygmy Puff",7000],
+["Baby Hippogriff",15000],
+["Phoenix",25000],
+["Thestral",40000]
+
+];
+
+// =====================================
+// SAVE
+// =====================================
+
+function save(){
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(data)
+);
+
+updateBalance();
+
+}
+
+// =====================================
+// BALANCE
+// =====================================
+
+function updateBalance(){
+
+document.getElementById(
+"galleonBalance"
+).textContent=data.galleons;
+
+}
+
+updateBalance();
+
+// =====================================
+// BUY
+// =====================================
+
+function buyItem(name,price){
+
+if(data.inventory.includes(name)){
+
+alert("Already owned.");
+
+return;
+
+}
+
+if(data.galleons<price){
+
+alert("Not enough Galleons.");
+
+return;
+
+}
+
+data.galleons-=price;
+
+data.inventory.push(name);
+
+save();
+
+renderAll();
+
+alert(
+"✨ Purchased: "+name
+);
+
+}
+
+// =====================================
+// RENDER
+// =====================================
+
+function renderItems(
+items,
+containerId
+){
+
+const container=
+document.getElementById(
+containerId
+);
+
+container.innerHTML="";
+
+items.forEach(item=>{
+
+const name=item[0];
+const price=item[1];
+
+const owned=
+data.inventory.includes(name);
+
+const card=
+document.createElement("div");
+
+card.className="item";
+
+card.innerHTML=`
+
+<h3>${name}</h3>
+
+<div class="price">
+💰 ${price}
+</div>
+
+<button
+class="${
+owned
+?
+'owned'
+:
+'buy'
+}"
+>
+
+${
+owned
+?
+'Owned'
+:
+'Buy'
+}
+
+</button>
+
+`;
+
+const btn=
+card.querySelector(
+"button"
+);
+
+if(!owned){
+
+btn.onclick=()=>{
+
+buyItem(
+name,
+price
+);
+
+};
+
+}
+
+container.appendChild(
+card
+);
+
+});
+
+}
+
+function renderAll(){
+
+renderItems(
+snacks,
+"snacks"
+);
+
+renderItems(
+wands,
+"wands"
+);
+
+renderItems(
+brooms,
+"brooms"
+);
+
+renderItems(
+animals,
+"animals"
+);
+
+}
+
+renderAll();
+
+</script>
+
+</body>
+</html>
