@@ -2,16 +2,13 @@
    1. MAIN PAGE SETUP & BACKGROUND
    ========================================== */
 body {
-    /* Points exactly to your uploaded Hogwarts Express image */
     background-image: url('hogwartsexpress.png');
-    
-    /* Makes the image stretch smoothly across the entire screen */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     
-    color: #e2d1b3; /* Soft wizarding gold/parchment color text */
+    color: #ffffff; /* Swapped to pure white so it stands out easily against the image */
     font-family: 'Georgia', serif;
     display: flex;
     justify-content: center;
@@ -30,7 +27,7 @@ body {
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: rgba(10, 10, 15, 0.85); /* Dark tint overlay */
+    background: rgba(0, 0, 0, 0.2); /* MUCH lighter tint so you can see the background perfectly */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,14 +35,14 @@ body {
 }
 
 .menu-box {
-    background: rgba(30, 30, 40, 0.9); /* See-through dark glass frame */
-    border: 2px solid #c5a059; /* Gold border line */
+    background: rgba(20, 20, 30, 0.65); /* Highly transparent magical glass effect */
+    border: 2px solid #c5a059; 
     border-radius: 12px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 0 25px rgba(197, 160, 89, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     width: 320px;
-    backdrop-filter: blur(5px); /* Elegant blur effect on the background image */
+    backdrop-filter: blur(3px); /* Subtle blur so text stays easy to read over the train image */
 }
 
 .vertical-buttons {
@@ -59,32 +56,33 @@ body {
    3. MAIN STUDY INTERFACE DASHBOARD
    ========================================== */
 .main-container {
-    background: rgba(30, 30, 40, 0.9);
+    background: rgba(20, 20, 30, 0.65); /* Matches the transparent glass effect */
     border: 2px solid #c5a059;
     border-radius: 15px;
     padding: 30px;
     width: 380px;
     text-align: center;
-    box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
 }
 
 .status-bar {
     display: flex;
     justify-content: space-around;
-    border-bottom: 1px solid #4a4a5a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
 
 .galleon-counter {
-    background: rgba(39, 39, 56, 0.8);
+    background: rgba(255, 215, 0, 0.15); /* Translucent gold vault display */
     padding: 8px;
     border-radius: 5px;
     font-size: 18px;
     margin-bottom: 20px;
-    color: #ffd700; /* Bright gold text for currency */
-    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: #ffd700; 
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    font-weight: bold;
 }
 
 /* ==========================================
@@ -96,14 +94,14 @@ body {
     margin: 20px 0;
     font-family: monospace;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(226, 209, 179, 0.3);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Dark shadow behind numbers so you can read it easily */
 }
 
 /* ==========================================
    5. BUTTON STYLES & HOUSE THEMES
    ========================================== */
 .magic-btn {
-    background-color: #2a2a3a;
+    background-color: rgba(40, 40, 60, 0.8);
     color: white;
     border: 1px solid #c5a059;
     padding: 12px;
@@ -111,25 +109,35 @@ body {
     cursor: pointer;
     border-radius: 6px;
     transition: 0.2s;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .magic-btn:hover {
-    box-shadow: 0 0 12px #c5a059;
+    box-shadow: 0 0 15px #c5a059;
     transform: scale(1.02);
+    background-color: rgba(60, 60, 90, 0.9);
 }
 
 /* Specific Houses Theme Colors */
-.gryffindor-btn { background-color: #740001; }
-.ravenclaw-btn { background-color: #0e1a40; }
-.hufflepuff-btn { background-color: #ecb939; color: black; }
-.slytherin-btn { background-color: #1a472a; }
+.gryffindor-btn { background-color: rgba(116, 0, 1, 0.85); }
+.gryffindor-btn:hover { background-color: rgba(174, 0, 1, 1); }
+
+.ravenclaw-btn { background-color: rgba(14, 26, 64, 0.85); }
+.ravenclaw-btn:hover { background-color: rgba(34, 47, 91, 1); }
+
+.hufflepuff-btn { background-color: rgba(236, 185, 57, 0.85); color: black; text-shadow: none; }
+.hufflepuff-btn:hover { background-color: rgba(255, 200, 70, 1); }
+
+.slytherin-btn { background-color: rgba(26, 71, 42, 0.85); }
+.slytherin-btn:hover { background-color: rgba(42, 98, 61, 1); }
 
 /* ==========================================
    6. UTILITY CONTROLS
    ========================================== */
-/* Automatically hides components when triggered by script.js */
 .hidden { 
     display: none !important; 
 }
-  
+
+
 
