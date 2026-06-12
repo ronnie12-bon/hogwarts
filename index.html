@@ -2,27 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hogwarts Study Great Hall</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogwarts Study Room</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main-container">
+
+    <div id="houseMenu" class="overlay">
+        <div class="menu-box">
+            <h2>Select Your Hogwarts House</h2>
+            <p>Choose your allegiance before starting your focus session:</p>
+            <div class="vertical-buttons">
+                <button class="magic-btn gryffindor-btn" onclick="selectHouse('Gryffindor')">Gryffindor</button>
+                <button class="magic-btn ravenclaw-btn" onclick="selectHouse('Ravenclaw')">Ravenclaw</button>
+                <button class="magic-btn hufflepuff-btn" onclick="selectHouse('Hufflepuff')">Hufflepuff</button>
+                <button class="magic-btn slytherin-btn" onclick="selectHouse('Slytherin')">Slytherin</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="charMenu" class="overlay hidden">
+        <div class="menu-box">
+            <h2>Select Your Study Companion</h2>
+            <p>Who will be studying alongside you today?</p>
+            <div class="vertical-buttons">
+                <button class="magic-btn" onclick="selectCharacter('Harry')">Harry Potter</button>
+                <button class="magic-btn" onclick="selectCharacter('Hermione')">Hermione Granger</button>
+                <button class="magic-btn" onclick="selectCharacter('Ron')">Ron Weasley</button>
+                <button class="magic-btn" onclick="selectCharacter('Gringotts Goblin')">Gringotts Goblin</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainDashboard" class="main-container hidden">
         <header>
-            <h1>Hogwarts Study Hall</h1>
-            <p>Earn points for your House by staying focused.</p>
+            <h1>Hogwarts Great Hall</h1>
+            <div class="status-bar">
+                <p>House: <span id="displayHouse" style="font-weight: bold;">None</span></p>
+                <p>Companion: <span id="displayCharacter" style="font-weight: bold; color: #e2d1b3;">None</span></p>
+            </div>
+            <div class="galleon-counter">
+                🪙 Vault Balance: <span id="galleonCount">0</span> Galleons
+            </div>
         </header>
 
         <section class="timer-section">
-            <div id="hourglass">25:00</div>
-            <button class="magic-btn" onclick="startTimer()">Cast Focus Spell</button>
-        </section>
-
-        <section class="todo-section">
-            <h3>Your Daily Prophet Tasks</h3>
-            <input type="text" id="taskInput" placeholder="Write a new scroll...">
-            <button class="magic-btn" onclick="addTask()">Add Task</button>
-            <ul id="taskList"></ul>
+            <div id="timerDisplay">25:00</div>
+            <button id="timerBtn" class="magic-btn" onclick="toggleTimer()">Cast Focus Spell</button>
         </section>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
