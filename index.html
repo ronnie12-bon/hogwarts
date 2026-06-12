@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hogwarts Study Great Hall</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>Hogwarts Study Hall</h1>
+            <p>Earn points for your House by staying focused.</p>
+        </header>
+
+        <section class="timer-section">
+            <div id="hourglass">25:00</div>
+            <button class="magic-btn" onclick="startTimer()">Cast Focus Spell</button>
+        </section>
+
+        <section class="todo-section">
+            <h3>Your Daily Prophet Tasks</h3>
+            <input type="text" id="taskInput" placeholder="Write a new scroll...">
+            <button class="magic-btn" onclick="addTask()">Add Task</button>
+            <ul id="taskList"></ul>
+        </section>
+    </div>
+</body>
+</html>
