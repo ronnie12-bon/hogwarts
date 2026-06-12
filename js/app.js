@@ -507,7 +507,7 @@ function rewardMinute() {
 
     // XP
 
-    addXP(10);
+    addBoostedXP(10);
 
     // Hourly Rewards
 
@@ -543,7 +543,7 @@ function completeSession() {
 
     data.housePoints += 25;
 
-    addXP(50);
+    addBoostedXP(50);
 
     notify(
         "✨ Focus Session Complete!"
@@ -2645,3 +2645,513 @@ unlockChamber();
 checkEndgameRewards();
 
 convertHousePointsToCup();
+// =====================================================
+// PART 7
+// FINAL UI + STARTUP SYSTEM
+// =====================================================
+
+// -------------------------------------
+// AUDIO SYSTEM
+// -------------------------------------
+
+let backgroundAudio = null;
+
+function initializeAudio() {
+
+    const audioElement =
+        document.getElementById(
+            "backgroundMusic"
+        );
+
+    if (!audioElement)
+        return;
+
+    backgroundAudio =
+        audioElement;
+
+    backgroundAudio.volume =
+        0.3;
+
+    if (
+        data.audioEnabled
+    ) {
+
+        backgroundAudio.play()
+            .catch(() => {});
+    }
+}
+
+function toggleAudio() {
+
+    if (!backgroundAudio)
+        return;
+
+    data.audioEnabled =
+        !data.audioEnabled;
+
+    if (
+        data.audioEnabled
+    ) {
+
+        backgroundAudio.play();
+
+        notify(
+            "🎵 Music Enabled"
+        );
+
+    } else {
+
+        backgroundAudio.pause();
+
+        notify(
+            "🔇 Music Disabled"
+        );
+    }
+
+    saveData();
+}
+
+// -------------------------------------
+// PARTICLE EFFECTS
+// -------------------------------------
+
+function createMagicParticle() {
+
+    const particle =
+        document.createElement(
+            "div"
+        );
+
+    particle.className =
+        "magic-particle";
+
+    particle.style.left =
+        Math.random() * 100 + "vw";
+
+    particle.style.top =
+        "100vh";
+
+    document.body.appendChild(
+        particle
+    );
+
+    setTimeout(() => {
+
+        particle.remove();
+
+    }, 8000);
+}
+
+function startParticleSystem() {
+
+    setInterval(() => {
+
+        createMagicParticle();
+
+    }, 3000);
+}
+
+// -------------------------------------
+// PLAYER STATISTICS
+// -------------------------------------
+
+function getPlayerStatistics() {
+
+    return {
+
+        level:
+            data.level,
+
+        xp:
+            data.xp,
+
+        galleons:
+            data.galleons,
+
+        bankBalance:
+            data.bankBalance,
+
+        housePoints:
+            data.housePoints,
+
+        studyMinutes:
+            data.studyMinutes,
+
+        studyHours:
+            data.studyHours,
+
+        streak:
+            data.streak,
+
+        inventory:
+            data.inventory.length,
+
+        cards:
+            data.chocolateCards.length,
+
+        patronus:
+            data.patronus,
+
+        prestige:
+            data.prestige
+
+    };
+}
+
+// -------------------------------------
+// XP PROGRESS
+// -------------------------------------
+
+function getXPProgress() {
+
+    const currentLevelXP =
+
+        (data.level - 1) * 100;
+
+    const nextLevelXP =
+
+        data.level * 100;
+
+    const current =
+        data.xp -
+        currentLevelXP;
+
+    const required =
+        nextLevelXP -
+        currentLevelXP;
+
+    return Math.floor(
+
+        (
+            current /
+            required
+        ) * 100
+
+    );
+}
+
+// -------------------------------------
+// UPDATE PROGRESS BAR
+// -------------------------------------
+
+function updateXPBar() {
+
+    const bar =
+        document.getElementById(
+            "xpBar"
+        );
+
+    if (!bar)
+        return;
+
+    bar.style.width =
+        getXPProgress() + "%";
+}
+
+// -------------------------------------
+// UPDATE ALL UI
+// -------------------------------------
+
+function updateUI() {
+
+    updateDashboard();
+
+    updateWizardTitle();
+
+    updateXPBar();
+
+    const rank =
+        document.getElementById(
+            "houseCupRank"
+        );
+
+    if (rank) {
+
+        rank.textContent =
+            getHouseCupRank();
+    }
+
+    const patronus =
+        document.getElementById(
+            "patronusDisplay"
+        );
+
+    if (patronus) {
+
+        patronus.textContent =
+            data.patronus ||
+            "Not Unlocked";
+    }
+
+    const prestige =
+        document.getElementById(
+            "prestigeLevel"
+        );
+
+    if (prestige) {
+
+        prestige.textContent =
+            data.prestige;
+    }
+}
+
+// -------------------------------------
+// SAVE MIGRATION
+// -------------------------------------
+
+function migrateSaveData() {
+
+    const requiredFields = {
+
+        prestige: 0,
+
+        houseCupPoints: 0,
+
+        mysteryBoxes: 0,
+
+        bankBalance: 0,
+
+        patronus: null,
+
+        chocolateCards: [],
+
+        inventory: [],
+
+        achievements: []
+
+    };
+
+    Object.keys(
+        requiredFields
+    ).forEach(key => {
+
+        if (
+            data[key] ===
+            undefined
+        ) {
+
+            data[key] =
+                requiredFields[key];
+        }
+
+    });
+
+    saveData();
+}
+
+// -------------------------------------
+// AUTO REWARD EVENTS
+// -------------------------------------
+
+function randomMagicEvent() {
+
+    const roll =
+        Math.random();
+
+    if (roll < 0.05) {
+
+        const reward =
+
+            Math.floor(
+                Math.random() * 500
+            ) + 100;
+
+        data.galleons += reward;
+
+        notify(
+            "✨ Magical Event!<br>+" +
+            reward +
+            " Galleons"
+        );
+
+        saveData();
+    }
+}
+
+setInterval(() => {
+
+    randomMagicEvent();
+
+}, 600000);
+
+// -------------------------------------
+// LEADERBOARD SCORE
+// -------------------------------------
+
+function calculatePowerLevel() {
+
+    return (
+
+        data.level * 100 +
+
+        data.housePoints +
+
+        data.galleons +
+
+        (data.inventory.length * 500) +
+
+        (data.chocolateCards.length * 1000)
+
+    );
+}
+
+// -------------------------------------
+// EXPORT SAVE
+// -------------------------------------
+
+function exportSaveFile() {
+
+    const blob =
+        new Blob(
+
+            [
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                )
+            ],
+
+            {
+                type:
+                    "application/json"
+            }
+
+        );
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+    link.href = url;
+
+    link.download =
+        "hogwarts-save.json";
+
+    link.click();
+}
+
+// -------------------------------------
+// IMPORT SAVE
+// -------------------------------------
+
+function importSaveFile(file) {
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(event) {
+
+            try {
+
+                const imported =
+
+                    JSON.parse(
+                        event.target.result
+                    );
+
+                data = {
+
+                    ...DEFAULT_DATA,
+
+                    ...imported
+
+                };
+
+                saveData();
+
+                location.reload();
+
+            } catch {
+
+                notify(
+                    "❌ Invalid Save File"
+                );
+            }
+
+        };
+
+    reader.readAsText(file);
+}
+
+// -------------------------------------
+// MASTER CHECKS
+// -------------------------------------
+
+function runMasterChecks() {
+
+    runProgressChecks();
+
+    checkSecretReward();
+
+    unlockChamber();
+
+    checkEndgameRewards();
+
+    updateUI();
+
+    saveData();
+}
+
+// -------------------------------------
+// GLOBAL ACCESS
+// -------------------------------------
+
+window.toggleAudio =
+    toggleAudio;
+
+window.exportSaveFile =
+    exportSaveFile;
+
+window.importSaveFile =
+    importSaveFile;
+
+window.getPlayerStatistics =
+    getPlayerStatistics;
+
+window.calculatePowerLevel =
+    calculatePowerLevel;
+
+// -------------------------------------
+// STARTUP
+// -------------------------------------
+
+function initializeGame() {
+
+    migrateSaveData();
+
+    initializeAudio();
+
+    startParticleSystem();
+
+    runMasterChecks();
+
+    updateUI();
+
+    notify(
+        "⚡ Welcome Back Wizard!"
+    );
+}
+
+// -------------------------------------
+// DOM READY
+// -------------------------------------
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        initializeGame();
+
+    }
+
+);
