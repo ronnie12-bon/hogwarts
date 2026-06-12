@@ -104,7 +104,7 @@ body {
 }
 
 /* ==========================================
-   4. FOCUS POMODORO TIMER DISPLAY
+   4. FOCUS POMODORO TIMER DISPLAY & INPUTS
    ========================================== */
 #timerDisplay {
     font-size: 64px;
@@ -113,6 +113,40 @@ body {
     font-family: monospace;
     letter-spacing: 2px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
+}
+
+.timer-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    color: #e2d1b3;
+}
+
+.input-group input {
+    background: rgba(20, 20, 30, 0.8);
+    border: 1px solid #c5a059;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 6px;
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 5px;
+    font-family: monospace;
+}
+
+.input-group input::-webkit-outer-spin-button,
+.input-group input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* ==========================================
@@ -137,7 +171,6 @@ body {
     background-color: rgba(60, 60, 90, 0.9);
 }
 
-/* Specific Houses Theme Colors */
 .gryffindor-btn { background-color: rgba(116, 0, 1, 0.85); }
 .gryffindor-btn:hover { background-color: rgba(174, 0, 1, 1); }
 
