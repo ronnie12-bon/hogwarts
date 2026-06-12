@@ -232,7 +232,7 @@ function notify(message) {
 // XP SYSTEM
 // =====================================================
 
-function addXP(amount) {
+function addBoostedXP(10); 
 
     data.xp += amount;
 
@@ -1193,3 +1193,1455 @@ function runProgressChecks() {
 // -------------------------------------
 
 runProgressChecks();
+// =====================================================
+// PART 4
+// SHOP + INVENTORY + RARITY SYSTEM
+// =====================================================
+
+// -------------------------------------
+// INVENTORY SAFETY
+// -------------------------------------
+
+if (!data.inventory) {
+    data.inventory = [];
+}
+
+// -------------------------------------
+// ITEM DATABASE
+// -------------------------------------
+
+const SHOP_ITEMS = [
+
+    // =====================
+    // SNACKS
+    // =====================
+
+    {
+        id: "chocolate_frog",
+        name: "Chocolate Frog",
+        price: 20,
+        rarity: "Common",
+        category: "Snack"
+    },
+
+    {
+        id: "bertie_beans",
+        name: "Bertie Bott's Beans",
+        price: 30,
+        rarity: "Common",
+        category: "Snack"
+    },
+
+    {
+        id: "cauldron_cake",
+        name: "Cauldron Cake",
+        price: 50,
+        rarity: "Common",
+        category: "Snack"
+    },
+
+    {
+        id: "treacle_tart",
+        name: "Treacle Tart",
+        price: 75,
+        rarity: "Rare",
+        category: "Snack"
+    },
+
+    {
+        id: "sugar_quill",
+        name: "Sugar Quill",
+        price: 100,
+        rarity: "Rare",
+        category: "Snack"
+    },
+
+    // =====================
+    // WANDS
+    // =====================
+
+    {
+        id: "oak_wand",
+        name: "Oak Wand",
+        price: 1000,
+        rarity: "Rare",
+        category: "Wand"
+    },
+
+    {
+        id: "cherry_wand",
+        name: "Cherry Wand",
+        price: 1200,
+        rarity: "Rare",
+        category: "Wand"
+    },
+
+    {
+        id: "phoenix_wand",
+        name: "Phoenix Core Wand",
+        price: 2500,
+        rarity: "Epic",
+        category: "Wand"
+    },
+
+    {
+        id: "elder_replica",
+        name: "Elder Wand Replica",
+        price: 5000,
+        rarity: "Legendary",
+        category: "Wand"
+    },
+
+    // =====================
+    // BROOMS
+    // =====================
+
+    {
+        id: "cleansweep",
+        name: "Cleansweep Seven",
+        price: 1500,
+        rarity: "Rare",
+        category: "Broom"
+    },
+
+    {
+        id: "nimbus2000",
+        name: "Nimbus 2000",
+        price: 3500,
+        rarity: "Epic",
+        category: "Broom"
+    },
+
+    {
+        id: "firebolt",
+        name: "Firebolt",
+        price: 10000,
+        rarity: "Legendary",
+        category: "Broom"
+    },
+
+    // =====================
+    // CREATURES
+    // =====================
+
+    {
+        id: "snowy_owl",
+        name: "Snowy Owl",
+        price: 2500,
+        rarity: "Rare",
+        category: "Creature"
+    },
+
+    {
+        id: "kneazle",
+        name: "Kneazle",
+        price: 5000,
+        rarity: "Epic",
+        category: "Creature"
+    },
+
+    {
+        id: "phoenix",
+        name: "Phoenix",
+        price: 25000,
+        rarity: "Legendary",
+        category: "Creature"
+    },
+
+    // =====================
+    // ARTIFACTS
+    // =====================
+
+    {
+        id: "resurrection_stone",
+        name: "Resurrection Stone",
+        price: 50000,
+        rarity: "Mythic",
+        category: "Artifact"
+    },
+
+    {
+        id: "time_turner",
+        name: "Time Turner",
+        price: 75000,
+        rarity: "Mythic",
+        category: "Artifact"
+    },
+
+    {
+        id: "philosophers_stone",
+        name: "Philosopher's Stone",
+        price: 100000,
+        rarity: "Mythic",
+        category: "Artifact"
+    }
+
+];
+
+// -------------------------------------
+// FIND ITEM
+// -------------------------------------
+
+function getItem(itemId) {
+
+    return SHOP_ITEMS.find(
+        item => item.id === itemId
+    );
+}
+
+// -------------------------------------
+// OWNERSHIP CHECK
+// -------------------------------------
+
+function ownsItem(itemId) {
+
+    return data.inventory.some(
+        item => item.id === itemId
+    );
+}
+
+// -------------------------------------
+// BUY ITEM
+// -------------------------------------
+
+function buyItem(itemId) {
+
+    const item =
+        getItem(itemId);
+
+    if (!item)
+        return;
+
+    if (
+        ownsItem(itemId)
+    ) {
+
+        notify(
+            "⚠ Already Owned"
+        );
+
+        return;
+    }
+
+    if (
+        data.galleons <
+        item.price
+    ) {
+
+        notify(
+            "💰 Not Enough Galleons"
+        );
+
+        return;
+    }
+
+    data.galleons -=
+        item.price;
+
+    data.inventory.push({
+
+        id: item.id,
+
+        name: item.name,
+
+        rarity: item.rarity,
+
+        category: item.category,
+
+        acquired:
+            Date.now()
+    });
+
+    addXP(
+        Math.floor(
+            item.price / 20
+        )
+    );
+
+    notify(
+        "✨ Purchased<br>" +
+        item.name
+    );
+
+    saveData();
+
+    updateDashboard();
+
+    runProgressChecks();
+}
+
+// -------------------------------------
+// SELL ITEM
+// -------------------------------------
+
+function sellItem(itemId) {
+
+    const index =
+        data.inventory.findIndex(
+            item =>
+                item.id === itemId
+        );
+
+    if (
+        index === -1
+    ) return;
+
+    const item =
+        getItem(itemId);
+
+    const value =
+        Math.floor(
+            item.price * 0.5
+        );
+
+    data.galleons += value;
+
+    data.inventory.splice(
+        index,
+        1
+    );
+
+    notify(
+        "💰 Sold<br>" +
+        item.name +
+        "<br>+" +
+        value +
+        " Galleons"
+    );
+
+    saveData();
+
+    updateDashboard();
+}
+
+// -------------------------------------
+// INVENTORY STATS
+// -------------------------------------
+
+function getInventoryValue() {
+
+    let total = 0;
+
+    data.inventory.forEach(
+        owned => {
+
+            const item =
+                getItem(
+                    owned.id
+                );
+
+            if (item) {
+
+                total +=
+                    item.price;
+            }
+
+        }
+    );
+
+    return total;
+}
+
+// -------------------------------------
+// RARITY COUNTS
+// -------------------------------------
+
+function getRarityCounts() {
+
+    const counts = {
+
+        Common: 0,
+        Rare: 0,
+        Epic: 0,
+        Legendary: 0,
+        Mythic: 0
+    };
+
+    data.inventory.forEach(
+        item => {
+
+            if (
+                counts[item.rarity]
+                !== undefined
+            ) {
+
+                counts[
+                    item.rarity
+                ]++;
+            }
+
+        }
+    );
+
+    return counts;
+}
+
+// -------------------------------------
+// COLLECTION %
+/* ----------------------------------- */
+
+function getCollectionPercent() {
+
+    return Math.floor(
+
+        (
+            data.inventory.length
+            /
+            SHOP_ITEMS.length
+        ) * 100
+
+    );
+}
+
+// -------------------------------------
+// RANDOM LOOT ITEM
+// -------------------------------------
+
+function awardRandomLoot() {
+
+    const available =
+
+        SHOP_ITEMS.filter(
+            item =>
+                !ownsItem(
+                    item.id
+                )
+        );
+
+    if (
+        available.length === 0
+    ) {
+
+        notify(
+            "🎉 Collection Complete!"
+        );
+
+        return;
+    }
+
+    const randomItem =
+
+        available[
+            Math.floor(
+                Math.random()
+                *
+                available.length
+            )
+        ];
+
+    data.inventory.push({
+
+        id: randomItem.id,
+
+        name: randomItem.name,
+
+        rarity:
+            randomItem.rarity,
+
+        category:
+            randomItem.category,
+
+        acquired:
+            Date.now()
+    });
+
+    notify(
+        "🎁 Loot Found!<br>"
+        +
+        randomItem.name
+    );
+
+    saveData();
+}
+
+// -------------------------------------
+// SHOP FILTERS
+// -------------------------------------
+
+function getItemsByCategory(
+    category
+) {
+
+    return SHOP_ITEMS.filter(
+        item =>
+            item.category ===
+            category
+    );
+}
+
+// -------------------------------------
+// GLOBAL ACCESS
+// -------------------------------------
+
+window.buyItem =
+    buyItem;
+
+window.sellItem =
+    sellItem;
+
+window.getInventoryValue =
+    getInventoryValue;
+
+window.getCollectionPercent =
+    getCollectionPercent;
+
+window.getRarityCounts =
+    getRarityCounts;
+
+window.awardRandomLoot =
+    awardRandomLoot;
+// =====================================================
+// PART 5
+// CHOCOLATE FROG CARDS
+// PATRONUS
+// MYSTERY BOXES
+// GRINGOTTS BANK
+// =====================================================
+
+// -------------------------------------
+// SAVE MIGRATION
+// -------------------------------------
+
+if (!data.chocolateCards)
+    data.chocolateCards = [];
+
+if (!data.bankBalance)
+    data.bankBalance = 0;
+
+if (!data.patronus)
+    data.patronus = null;
+
+if (!data.lastInterestDate)
+    data.lastInterestDate = null;
+
+// -------------------------------------
+// CHOCOLATE FROG CARDS
+// -------------------------------------
+
+const CHOCOLATE_FROG_CARDS = [
+
+    {
+        name: "Albus Dumbledore",
+        rarity: "Legendary"
+    },
+
+    {
+        name: "Minerva McGonagall",
+        rarity: "Epic"
+    },
+
+    {
+        name: "Severus Snape",
+        rarity: "Epic"
+    },
+
+    {
+        name: "Remus Lupin",
+        rarity: "Rare"
+    },
+
+    {
+        name: "Rubeus Hagrid",
+        rarity: "Rare"
+    },
+
+    {
+        name: "Sirius Black",
+        rarity: "Epic"
+    },
+
+    {
+        name: "Mad-Eye Moody",
+        rarity: "Rare"
+    },
+
+    {
+        name: "Newt Scamander",
+        rarity: "Legendary"
+    },
+
+    {
+        name: "Godric Gryffindor",
+        rarity: "Mythic"
+    },
+
+    {
+        name: "Rowena Ravenclaw",
+        rarity: "Mythic"
+    },
+
+    {
+        name: "Helga Hufflepuff",
+        rarity: "Mythic"
+    },
+
+    {
+        name: "Salazar Slytherin",
+        rarity: "Mythic"
+    }
+
+];
+
+// -------------------------------------
+// OPEN CHOCOLATE FROG
+// -------------------------------------
+
+function openChocolateFrog() {
+
+    const randomCard =
+
+        CHOCOLATE_FROG_CARDS[
+            Math.floor(
+                Math.random()
+                *
+                CHOCOLATE_FROG_CARDS.length
+            )
+        ];
+
+    const alreadyOwned =
+
+        data.chocolateCards.some(
+            card =>
+                card.name ===
+                randomCard.name
+        );
+
+    if (!alreadyOwned) {
+
+        data.chocolateCards.push({
+
+            ...randomCard,
+
+            obtained:
+                Date.now()
+
+        });
+
+        notify(
+            "🎴 New Card!<br>"
+            +
+            randomCard.name
+        );
+
+    } else {
+
+        data.galleons += 100;
+
+        notify(
+            "🎴 Duplicate Card<br>+100 Galleons"
+        );
+    }
+
+    saveData();
+}
+
+// -------------------------------------
+// CARD COLLECTION
+// -------------------------------------
+
+function getCardCollectionPercent() {
+
+    return Math.floor(
+
+        (
+            data.chocolateCards.length
+            /
+            CHOCOLATE_FROG_CARDS.length
+        ) * 100
+
+    );
+}
+
+// -------------------------------------
+// PATRONUS SYSTEM
+// -------------------------------------
+
+const PATRONUSES = [
+
+    "Stag",
+    "Otter",
+    "Wolf",
+    "Phoenix",
+    "Falcon",
+    "Horse",
+    "Fox",
+    "Doe",
+    "Dragon",
+    "Eagle",
+    "Lion",
+    "Tiger"
+
+];
+
+// -------------------------------------
+// UNLOCK PATRONUS
+// -------------------------------------
+
+function unlockPatronus() {
+
+    if (data.patronus)
+        return;
+
+    if (
+        data.studyMinutes < 1000
+    ) {
+
+        notify(
+            "✨ Study 1000 Minutes To Unlock Your Patronus"
+        );
+
+        return;
+    }
+
+    data.patronus =
+
+        PATRONUSES[
+            Math.floor(
+                Math.random()
+                *
+                PATRONUSES.length
+            )
+        ];
+
+    notify(
+        "✨ Patronus Unlocked!<br>"
+        +
+        data.patronus
+    );
+
+    saveData();
+}
+
+// -------------------------------------
+// MYSTERY BOX SYSTEM
+// -------------------------------------
+
+function openMysteryBox() {
+
+    if (
+        data.mysteryBoxes <= 0
+    ) {
+
+        notify(
+            "🎁 No Mystery Boxes"
+        );
+
+        return;
+    }
+
+    data.mysteryBoxes--;
+
+    const roll =
+        Math.random();
+
+    // 50%
+
+    if (roll < 0.50) {
+
+        const gold =
+
+            Math.floor(
+                Math.random() * 500
+            ) + 100;
+
+        data.galleons += gold;
+
+        notify(
+            "💰 Mystery Reward<br>+" +
+            gold +
+            " Galleons"
+        );
+    }
+
+    // 30%
+
+    else if (roll < 0.80) {
+
+        awardRandomLoot();
+
+        return;
+    }
+
+    // 15%
+
+    else if (roll < 0.95) {
+
+        openChocolateFrog();
+
+        return;
+    }
+
+    // 5%
+
+    else {
+
+        data.galleons += 5000;
+
+        notify(
+            "✨ JACKPOT!<br>5000 Galleons"
+        );
+    }
+
+    saveData();
+}
+
+// -------------------------------------
+// GRINGOTTS BANK
+// -------------------------------------
+
+function deposit(amount) {
+
+    amount =
+        Number(amount);
+
+    if (
+        isNaN(amount)
+    ) return;
+
+    if (
+        amount <= 0
+    ) return;
+
+    if (
+        data.galleons < amount
+    ) {
+
+        notify(
+            "💰 Not Enough Galleons"
+        );
+
+        return;
+    }
+
+    data.galleons -= amount;
+
+    data.bankBalance += amount;
+
+    notify(
+        "🏦 Deposited<br>"
+        +
+        amount +
+        " Galleons"
+    );
+
+    saveData();
+
+    updateDashboard();
+}
+
+// -------------------------------------
+// WITHDRAW
+// -------------------------------------
+
+function withdraw(amount) {
+
+    amount =
+        Number(amount);
+
+    if (
+        isNaN(amount)
+    ) return;
+
+    if (
+        amount <= 0
+    ) return;
+
+    if (
+        data.bankBalance < amount
+    ) {
+
+        notify(
+            "🏦 Insufficient Vault Funds"
+        );
+
+        return;
+    }
+
+    data.bankBalance -= amount;
+
+    data.galleons += amount;
+
+    notify(
+        "🏦 Withdrawn<br>"
+        +
+        amount +
+        " Galleons"
+    );
+
+    saveData();
+
+    updateDashboard();
+}
+
+// -------------------------------------
+// DAILY INTEREST
+// -------------------------------------
+
+function applyBankInterest() {
+
+    const today =
+        new Date().toDateString();
+
+    if (
+        data.lastInterestDate ===
+        today
+    ) {
+        return;
+    }
+
+    if (
+        data.bankBalance > 0
+    ) {
+
+        const interest =
+
+            Math.floor(
+                data.bankBalance * 0.01
+            );
+
+        data.bankBalance +=
+            interest;
+
+        notify(
+            "🏦 Bank Interest<br>"
+            +
+            interest +
+            " Galleons"
+        );
+    }
+
+    data.lastInterestDate =
+        today;
+
+    saveData();
+}
+
+applyBankInterest();
+
+// -------------------------------------
+// DAILY LOGIN REWARD
+// -------------------------------------
+
+function claimDailyReward() {
+
+    const today =
+        new Date().toDateString();
+
+    if (
+        data.lastDailyReward ===
+        today
+    ) {
+
+        notify(
+            "📅 Daily Reward Already Claimed"
+        );
+
+        return;
+    }
+
+    const reward =
+
+        100 +
+        (data.level * 5);
+
+    data.galleons += reward;
+
+    data.lastDailyReward =
+        today;
+
+    notify(
+        "🎁 Daily Reward<br>"
+        +
+        reward +
+        " Galleons"
+    );
+
+    saveData();
+}
+
+// -------------------------------------
+// SECRET REWARD
+// -------------------------------------
+
+function checkSecretReward() {
+
+    if (
+
+        data.chocolateCards.length >= 12 &&
+        !data.secretCollectorReward
+
+    ) {
+
+        data.secretCollectorReward =
+            true;
+
+        data.galleons +=
+            10000;
+
+        notify(
+            "🎴 Complete Card Collection!<br>+10000 Galleons"
+        );
+
+        saveData();
+    }
+}
+
+// -------------------------------------
+// GLOBAL ACCESS
+// -------------------------------------
+
+window.openChocolateFrog =
+    openChocolateFrog;
+
+window.openMysteryBox =
+    openMysteryBox;
+
+window.deposit =
+    deposit;
+
+window.withdraw =
+    withdraw;
+
+window.claimDailyReward =
+    claimDailyReward;
+
+window.unlockPatronus =
+    unlockPatronus;
+
+window.getCardCollectionPercent =
+    getCardCollectionPercent;
+
+// -------------------------------------
+// INITIAL CHECK
+// -------------------------------------
+
+checkSecretReward();
+// =====================================================
+// PART 6
+// HOUSE CUP + CHAMBER OF SECRETS
+// =====================================================
+
+// -------------------------------------
+// HOUSE CUP
+// -------------------------------------
+
+if (!data.houseCupPoints)
+    data.houseCupPoints = 0;
+
+function awardHouseCupPoints(points) {
+
+    data.houseCupPoints += points;
+
+    saveData();
+}
+
+function getHouseCupRank() {
+
+    const hp = data.houseCupPoints;
+
+    if (hp < 1000)
+        return "Student";
+
+    if (hp < 5000)
+        return "Prefect";
+
+    if (hp < 10000)
+        return "Head Student";
+
+    if (hp < 25000)
+        return "House Captain";
+
+    if (hp < 50000)
+        return "House Champion";
+
+    return "House Cup Legend";
+}
+
+// -------------------------------------
+// HOUSE POINT BONUS
+// -------------------------------------
+
+function convertHousePointsToCup() {
+
+    const bonus =
+        Math.floor(
+            data.housePoints / 100
+        );
+
+    awardHouseCupPoints(
+        bonus
+    );
+}
+
+// -------------------------------------
+// CHAMBER OF SECRETS
+// -------------------------------------
+
+function unlockChamber() {
+
+    if (
+        data.studyMinutes >= 5000 &&
+        data.inventory.length >= 20
+    ) {
+
+        if (
+            !data.chamberUnlocked
+        ) {
+
+            data.chamberUnlocked =
+                true;
+
+            notify(
+                "🐍 Chamber Of Secrets Unlocked!"
+            );
+
+            data.galleons += 5000;
+
+            saveData();
+        }
+    }
+}
+
+// -------------------------------------
+// ENTER CHAMBER
+// -------------------------------------
+
+function enterChamber() {
+
+    if (
+        !data.chamberUnlocked
+    ) {
+
+        notify(
+            "🔒 Chamber Locked"
+        );
+
+        return;
+    }
+
+    const reward =
+
+        Math.floor(
+            Math.random() * 2000
+        ) + 500;
+
+    data.galleons += reward;
+
+    notify(
+        "🐍 Chamber Treasure<br>+" +
+        reward +
+        " Galleons"
+    );
+
+    saveData();
+}
+
+// -------------------------------------
+// DAILY RESET
+// -------------------------------------
+
+function resetDailyQuests() {
+
+    const today =
+        new Date().toDateString();
+
+    if (
+        data.lastDailyReset ===
+        today
+    ) {
+        return;
+    }
+
+    data.lastDailyReset =
+        today;
+
+    if (
+        Array.isArray(
+            data.claimedRewards
+        )
+    ) {
+
+        data.claimedRewards =
+
+            data.claimedRewards.filter(
+                reward =>
+                    !reward.startsWith(
+                        "daily_"
+                    )
+            );
+    }
+
+    saveData();
+}
+
+// -------------------------------------
+// WEEKLY RESET
+// -------------------------------------
+
+function getWeekNumber() {
+
+    const now =
+        new Date();
+
+    const firstDay =
+        new Date(
+            now.getFullYear(),
+            0,
+            1
+        );
+
+    return Math.ceil(
+
+        (
+            (
+                now -
+                firstDay
+            ) /
+            86400000
+        ) / 7
+
+    );
+}
+
+function resetWeeklyQuests() {
+
+    const week =
+        getWeekNumber();
+
+    if (
+        data.lastWeeklyReset ===
+        week
+    ) {
+        return;
+    }
+
+    data.lastWeeklyReset =
+        week;
+
+    if (
+        Array.isArray(
+            data.claimedRewards
+        )
+    ) {
+
+        data.claimedRewards =
+
+            data.claimedRewards.filter(
+                reward =>
+                    !reward.startsWith(
+                        "weekly_"
+                    )
+            );
+    }
+
+    saveData();
+}
+
+// -------------------------------------
+// LEGENDARY ARTIFACT BONUSES
+// -------------------------------------
+
+function hasItem(itemId) {
+
+    return data.inventory.some(
+        item =>
+            item.id === itemId
+    );
+}
+
+function getStudyMultiplier() {
+
+    let multiplier = 1;
+
+    if (
+        hasItem(
+            "resurrection_stone"
+        )
+    ) {
+
+        multiplier += 0.25;
+    }
+
+    if (
+        hasItem(
+            "time_turner"
+        )
+    ) {
+
+        multiplier += 0.50;
+    }
+
+    if (
+        hasItem(
+            "philosophers_stone"
+        )
+    ) {
+
+        multiplier += 1.00;
+    }
+
+    return multiplier;
+}
+
+// -------------------------------------
+// BOOSTED XP
+// -------------------------------------
+
+function addBoostedXP(baseXP) {
+
+    const xp = Math.floor(
+
+        baseXP *
+        getStudyMultiplier()
+
+    );
+
+    addXP(xp);
+}
+
+// -------------------------------------
+// PRESTIGE SYSTEM
+// -------------------------------------
+
+if (!data.prestige)
+    data.prestige = 0;
+
+function canPrestige() {
+
+    return data.level >= 100;
+}
+
+function prestige() {
+
+    if (
+        !canPrestige()
+    ) {
+
+        notify(
+            "⭐ Reach Level 100 To Prestige"
+        );
+
+        return;
+    }
+
+    data.prestige++;
+
+    data.level = 1;
+
+    data.xp = 0;
+
+    data.galleons +=
+        50000;
+
+    notify(
+        "⭐ Prestige " +
+        data.prestige +
+        " Achieved!"
+    );
+
+    saveData();
+
+    updateDashboard();
+}
+
+// -------------------------------------
+// PRESTIGE BONUS
+// -------------------------------------
+
+function getPrestigeMultiplier() {
+
+    return 1 +
+        (
+            data.prestige * 0.1
+        );
+}
+
+// -------------------------------------
+// ENDGAME REWARDS
+// -------------------------------------
+
+function checkEndgameRewards() {
+
+    if (
+
+        data.level >= 100 &&
+        data.inventory.length >= 10 &&
+        !data.endgameReward
+
+    ) {
+
+        data.endgameReward =
+            true;
+
+        data.galleons +=
+            100000;
+
+        notify(
+            "🏆 Hogwarts Grandmaster<br>+100000 Galleons"
+        );
+
+        saveData();
+    }
+}
+
+// -------------------------------------
+// MASTER WIZARD
+// -------------------------------------
+
+function isMasterWizard() {
+
+    return (
+
+        data.level >= 100 &&
+        data.chocolateCards.length >= 12 &&
+        data.inventory.length >= 20 &&
+        data.chamberUnlocked
+
+    );
+}
+
+// -------------------------------------
+// FINAL TITLE
+// -------------------------------------
+
+function getUltimateTitle() {
+
+    if (
+        isMasterWizard()
+    ) {
+
+        return "Master Of Hogwarts";
+    }
+
+    return getWizardTitle();
+}
+
+// -------------------------------------
+// GLOBAL ACCESS
+// -------------------------------------
+
+window.enterChamber =
+    enterChamber;
+
+window.prestige =
+    prestige;
+
+window.getHouseCupRank =
+    getHouseCupRank;
+
+window.getUltimateTitle =
+    getUltimateTitle;
+
+// -------------------------------------
+// INITIALIZATION
+// -------------------------------------
+
+resetDailyQuests();
+
+resetWeeklyQuests();
+
+unlockChamber();
+
+checkEndgameRewards();
+
+convertHousePointsToCup();
