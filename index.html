@@ -4,93 +4,391 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hogwarts Study Focus</title>
+<title>Hogwarts Focus | Hogwarts Express</title>
 
-<link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header>
+<!-- Acceptance Letter -->
+
+<div id="letterModal" class="letter-modal">
+
+<div class="letter">
+
+<h1>⚡ Hogwarts Focus</h1>
+
+<p>
+Dear Student,
+</p>
+
+<p>
+We are pleased to inform you that you have been accepted to Hogwarts Focus School of Magical Productivity.
+</p>
+
+<p>
+Study hard, earn Galleons, unlock magical items, and become a Hogwarts Legend.
+</p>
+
+<button id="enterHogwarts">
+Board the Express
+</button>
+
+</div>
+
+</div>
+
+<!-- Navbar -->
+
+<header class="navbar">
 
 <div class="logo">
 ⚡ Hogwarts Focus
 </div>
 
 <nav>
-<a href="#">Library</a>
-<a href="#">Express</a>
-<a href="#">Tower</a>
-<a href="#">Ambience</a>
+
+<a href="index.html">🚂 Express</a>
+
+<a href="diagon-alley.html">🏪 Diagon Alley</a>
+
+<a href="inventory.html">🎒 Inventory</a>
+
+<a href="achievements.html">🏆 Achievements</a>
+
+<a href="settings.html">⚙ Settings</a>
+
 </nav>
 
 </header>
 
+<!-- Hero Section -->
+
 <section class="hero">
 
-<div class="overlay">
+<div class="rain-layer"></div>
+
+<div class="fog-layer"></div>
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content">
 
 <h1>Study Aboard The Hogwarts Express</h1>
 
 <p>
-Travel through the Scottish Highlands while focusing on your work.
+Travel through the Scottish Highlands while earning magical rewards.
 </p>
 
-<button id="startBtn">
-Start Studying
+<div class="hero-buttons">
+
+<a href="#timerSection" class="btn">
+Begin Studying
+</a>
+
+<a href="diagon-alley.html" class="btn secondary">
+Visit Diagon Alley
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Dashboard -->
+
+<section class="dashboard">
+
+<div class="card">
+
+<h3>💰 Galleons</h3>
+
+<p id="galleons">0</p>
+
+</div>
+
+<div class="card">
+
+<h3>🏆 House Points</h3>
+
+<p id="housePoints">0</p>
+
+</div>
+
+<div class="card">
+
+<h3>📚 Study Minutes</h3>
+
+<p id="studyMinutes">0</p>
+
+</div>
+
+<div class="card">
+
+<h3>🔥 Streak</h3>
+
+<p id="streak">0 Days</p>
+
+</div>
+
+</section>
+
+<!-- Study Cabin -->
+
+<section class="study-cabin">
+
+<div class="cabin-window">
+
+<div class="window-view"></div>
+
+</div>
+
+<div class="desk">
+
+<div class="spellbook">
+
+<h2>📖 Spellbook Notes</h2>
+
+<textarea
+id="notes"
+placeholder="Write your magical study notes here..."
+></textarea>
+
+</div>
+
+<div class="candle-area">
+
+<div class="candle">
+
+<div class="flame"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Timer -->
+
+<section id="timerSection" class="timer-section">
+
+<h2>⏳ Time-Turner Focus Session</h2>
+
+<div id="timer" class="timer-display">
+25:00
+</div>
+
+<div class="timer-controls">
+
+<button id="startTimer">
+▶ Start
+</button>
+
+<button id="pauseTimer">
+⏸ Pause
+</button>
+
+<button id="resetTimer">
+↻ Reset
 </button>
 
 </div>
 
-</section>
+<div class="timer-info">
 
-<section class="timer-section">
+<p>
+Every minute studied earns:
+</p>
 
-<h2>Focus Timer</h2>
+<h3>
+💰 +1 Galleon
+</h3>
 
-<div id="timer">25:00</div>
+<h3>
+🏆 +1 House Point
+</h3>
 
-<div class="controls">
-<button id="play">▶ Start</button>
-<button id="reset">↻ Reset</button>
 </div>
 
 </section>
+
+<!-- Audio Mixer -->
 
 <section class="audio-section">
 
-<h2>Train Ambience</h2>
+<h2>🎵 Magical Ambience Mixer</h2>
 
-<audio id="audio" loop>
-<source src="ambient.mp3" type="audio/mpeg">
-</audio>
+<div class="audio-grid">
 
-<button id="musicBtn">
-🎵 Play Ambience
+<div class="audio-card">
+
+<h3>🚂 Train Sounds</h3>
+
+<button id="trainToggle">
+Play
 </button>
 
+</div>
+
+<div class="audio-card">
+
+<h3>🌧 Rain</h3>
+
+<button id="rainToggle">
+Play
+</button>
+
+</div>
+
+<div class="audio-card">
+
+<h3>🔥 Fireplace</h3>
+
+<button id="fireToggle">
+Play
+</button>
+
+</div>
+
+<div class="audio-card">
+
+<h3>🦉 Owl Sounds</h3>
+
+<button id="owlToggle">
+Play
+</button>
+
+</div>
+
+</div>
+
 </section>
 
-<section class="notes">
+<!-- House Section -->
 
-<h2>Study Notes</h2>
+<section class="house-section">
 
-<textarea placeholder="Write your notes here..."></textarea>
+<h2>Your Hogwarts House</h2>
+
+<div id="currentHouse" class="house-display">
+Not Selected
+</div>
+
+<a href="settings.html" class="btn">
+Choose House
+</a>
 
 </section>
+
+<!-- Progress -->
+
+<section class="progress-section">
+
+<h2>Wizard Progress</h2>
+
+<div class="progress-card">
+
+<div class="progress-label">
+
+<span>Current Rank</span>
+
+<span id="rank">
+First Year
+</span>
+
+</div>
+
+<div class="progress-bar">
+
+<div id="rankProgress" class="progress-fill"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Daily Challenge -->
+
+<section class="challenge-section">
+
+<h2>📜 Daily Challenge</h2>
+
+<div class="challenge-card">
+
+<p>
+Study for 30 minutes today.
+</p>
+
+<p>
+Reward:
+</p>
+
+<h3>
+💰 +50 Galleons
+</h3>
+
+</div>
+
+</section>
+
+<!-- Floating Particles -->
+
+<div id="particles"></div>
+
+<!-- Hidden Audio -->
+
+<audio id="trainAudio" loop>
+<source src="assets/ambient.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="rainAudio" loop>
+<source src="assets/rain.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="fireAudio" loop>
+<source src="assets/fireplace.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="owlAudio" loop>
+<source src="assets/owl.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Footer -->
 
 <footer>
 
-Made for Magical Productivity ✨
+<div class="footer-content">
+
+<p>
+⚡ Hogwarts Focus
+</p>
+
+<p>
+Study • Earn • Collect • Become a Hogwarts Legend
+</p>
+
+</div>
 
 </footer>
 
-<script src="script.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
+
+
+
+
 
       
 
