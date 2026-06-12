@@ -8,10 +8,27 @@
 </head>
 <body>
 
-    <div id="houseMenu" class="overlay">
+    <div id="loginScreen" class="overlay">
+        <div class="menu-box login-box">
+            <div class="google-logo-container">
+                <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+            </div>
+            <h2>Sign in</h2>
+            <p>to continue to Hogwarts Study Suite</p>
+            
+            <button class="google-login-btn" onclick="handleGoogleLogin()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_\" Logo\"_Old.svg" alt="Google Icon" class="google-icon" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'">
+                <span>Sign in with Google</span>
+            </button>
+            
+            <p class="login-footer">To track your wizarding progress and save your Gringotts vault balance securely.</p>
+        </div>
+    </div>
+
+    <div id="houseMenu" class="overlay hidden">
         <div class="menu-box">
             <h2>Select Your Hogwarts House</h2>
-            <p>Choose your allegiance before starting your focus session:</p>
+            <p>Welcome, <span id="welcomeWizardName" style="color: #ffd700; font-weight: bold;">Wizard</span>! Choose your allegiance:</p>
             <div class="vertical-buttons">
                 <button class="magic-btn gryffindor-btn" onclick="selectHouse('Gryffindor')">Gryffindor</button>
                 <button class="magic-btn ravenclaw-btn" onclick="selectHouse('Ravenclaw')">Ravenclaw</button>
@@ -36,7 +53,7 @@
 
     <div id="mainDashboard" class="main-container hidden">
         <header>
-            <h1>Hogwarts Great Hall</h1>
+            <h1 id="dashboardTitle">Hogwarts Great Hall</h1>
             <div class="status-bar">
                 <p>House: <span id="displayHouse" style="font-weight: bold;">None</span></p>
                 <p>Companion: <span id="displayCharacter" style="font-weight: bold;">None</span></p>
@@ -45,6 +62,7 @@
             <div class="header-controls">
                 <button id="musicBtn" class="audio-btn" onclick="toggleMusic()">🔊 Ambient: ON</button>
                 <button id="openShopBtn" class="audio-btn shop-toggle-btn" onclick="toggleShop(true)">🛍️ Diagon Alley</button>
+                <button class="audio-btn logout-btn" onclick="handleLogout()">🚪 Logout</button>
             </div>
 
             <div class="galleon-counter">
