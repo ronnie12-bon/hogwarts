@@ -9,6 +9,13 @@ let state = {
     isMusicPlaying: false
 };
 
+// MAGIC TOUCH: Listen for the very first click anywhere on the page to start the music early!
+document.addEventListener('click', function() {
+    if (!state.isMusicPlaying) {
+        startAmbientMusic();
+    }
+}, { once: true }); // '{ once: true }' ensures this check only runs on the very first click
+
 // 1. Handle House Selection
 function selectHouse(houseName) {
     state.house = houseName;
@@ -22,17 +29,18 @@ function selectHouse(houseName) {
 
     document.getElementById('houseMenu').classList.add('hidden');
     document.getElementById('charMenu').classList.remove('hidden');
+    
+    // Backup trigger: Make sure music plays if it hasn't already
+    startAmbientMusic();
 }
 
-// 2. Handle Character Selection & Start Audio
+// 2. Handle Character Selection
 function selectCharacter(charName) {
     state.character = charName;
     document.getElementById('displayCharacter').innerText = charName;
 
     document.getElementById('charMenu').classList.add('hidden');
     document.getElementById('mainDashboard').classList.remove('hidden');
-
-    startAmbientMusic();
 }
 
 // Audio Control Functions
@@ -40,9 +48,10 @@ function startAmbientMusic() {
     const audio = document.getElementById('bgMusic');
     audio.play().then(() => {
         state.isMusicPlaying = true;
-        document.getElementById('musicBtn').innerText = "🔊 Ambient: ON";
+        const btn = document.getElementById('musicBtn');
+        if (btn) btn.innerText = "🔊 Ambient: ON";
     }).catch(error => {
-        console.log("Audio autoplay blocked by browser. Waiting for manual user click.");
+        console.log("Audio waiting for user interaction to unlock.");
     });
 }
 
@@ -101,4 +110,4 @@ function updateTimerDisplay() {
     let formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
     document.getElementById('timerDisplay').innerText = `${formattedMinutes}:${formattedSeconds}`;
 }
- 
+
