@@ -1,5 +1,9 @@
 body {
-    background-color: #121216;
+    background-image: url('hogwartsexpress.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #e2d1b3;
     font-family: 'Georgia', serif;
     display: flex;
@@ -8,7 +12,6 @@ body {
     height: 100vh;
     margin: 0;
 }
-
 /* Menu Layouts */
 .overlay {
     position: fixed;
