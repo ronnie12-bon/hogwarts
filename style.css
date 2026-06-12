@@ -1,33 +1,101 @@
 body {
-    background-color: #1a1a24; /* Dark magical night color */
-    color: #e2d1b3; /* Soft gold/parchment text */
+    background-color: #121216;
+    color: #e2d1b3;
     font-family: 'Georgia', serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
+/* Menu Layouts */
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.menu-box {
+    background: #1e1e28;
+    border: 2px solid #c5a059;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(197, 160, 89, 0.2);
+    width: 320px;
+}
+
+.vertical-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* Dashboard Layout */
 .main-container {
-    background: rgba(30, 30, 40, 0.85);
-    border: 2px solid #c5a059; /* Gold border */
+    background: #1e1e28;
+    border: 2px solid #c5a059;
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+    width: 380px;
     text-align: center;
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
 }
 
+.status-bar {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #3a3a4a;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.galleon-counter {
+    background: #272738;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #ffd700;
+}
+
+/* Timer Styling */
+#timerDisplay {
+    font-size: 64px;
+    font-weight: bold;
+    margin: 20px 0;
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+/* Interactive Buttons */
 .magic-btn {
-    background-color: #740001; /* Gryffindor Red */
+    background-color: #2a2a3a;
     color: white;
     border: 1px solid #c5a059;
-    padding: 10px 20px;
+    padding: 12px;
+    font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
+    border-radius: 6px;
+    transition: 0.2s;
 }
 
 .magic-btn:hover {
-    background-color: #ae0001;
-    box-shadow: 0 0 10px #c5a059;
+    box-shadow: 0 0 8px #c5a059;
+    transform: scale(1.02);
 }
+
+/* Specific House Colors */
+.gryffindor-btn { background-color: #740001; }
+.ravenclaw-btn { background-color: #0e1a40; }
+.hufflepuff-btn { background-color: #ecb939; color: black; }
+.slytherin-btn { background-color: #1a472a; }
+
+/* Dynamic hiding utility */
+.hidden { display: none !important; }
