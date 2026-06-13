@@ -197,3 +197,108 @@ background:gold;
 background:#aa2222;
 color:white;
 }
+
+/* =======================
+EXPRESS PAGE
+======================= */
+
+.study-cabin{
+
+padding-top:120px;
+
+padding-left:40px;
+padding-right:40px;
+
+text-align:center;
+}
+
+.study-cabin h1{
+
+font-family:'Cinzel',serif;
+
+margin-bottom:30px;
+
+color:var(--gold);
+}
+
+/* WINDOW */
+
+.cabin-window{
+
+max-width:1000px;
+
+height:350px;
+
+margin:auto;
+
+border:5px solid var(--gold);
+
+border-radius:20px;
+
+overflow:hidden;
+}
+
+.window-view{
+
+height:100%;
+
+background:url("../assets/hogwarts-express.jpg");
+
+background-size:cover;
+
+animation:trainMove 60s linear infinite;
+}
+
+@keyframes trainMove{
+
+from{
+background-position:0 center;
+}
+
+to{
+background-position:-3000px center;
+}
+
+}
+
+/* TIMER */
+
+.timer-container{
+
+margin-top:50px;
+}
+
+.timer-display{
+
+font-size:5rem;
+
+font-weight:bold;
+
+color:var(--gold);
+
+margin-bottom:20px;
+}
+
+.timer-buttons{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+}
+
+.timer-buttons button{
+
+padding:14px 28px;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:bold;
+}
