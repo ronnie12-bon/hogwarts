@@ -1,1 +1,2 @@
-npm create vite@latest hogwarts-study -- --template react
+cd hogwarts-study
+npm install
