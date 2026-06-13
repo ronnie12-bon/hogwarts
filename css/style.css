@@ -167,3 +167,33 @@ padding:15px;
 }
 
 }
+.hero-buttons{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+#startBtn,
+#resetBtn{
+
+padding:14px 30px;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:bold;
+}
+
+#startBtn{
+background:gold;
+}
+
+#resetBtn{
+background:#aa2222;
+color:white;
+}
