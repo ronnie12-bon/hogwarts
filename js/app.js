@@ -124,3 +124,17 @@ document
 // =========================
 
 updateUI();
+document
+.getElementById("resetBtn")
+.addEventListener("click", () => {
+
+    if (
+        confirm(
+            "Delete all progress?"
+        )
+    ) {
+
+        resetData();
+    }
+
+});
