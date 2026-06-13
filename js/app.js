@@ -1,45 +1,126 @@
-const data = {
+// =========================
+// SAVE SYSTEM
+// =========================
 
-level: 1,
+const STORAGE_KEY = "hogwartsFocusSave";
 
-galleons: 0,
+const DEFAULT_DATA = {
 
-housePoints: 0,
+    level: 1,
 
-studyMinutes: 0
+    galleons: 0,
+
+    housePoints: 0,
+
+    studyMinutes: 0
 
 };
 
-function updateUI(){
+// =========================
+// LOAD SAVE
+// =========================
 
-document.getElementById("level").textContent =
-data.level;
+function loadData() {
 
-document.getElementById("galleons").textContent =
-data.galleons;
+    const save =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
 
-document.getElementById("housePoints").textContent =
-data.housePoints;
+    if (!save) {
 
-document.getElementById("studyMinutes").textContent =
-data.studyMinutes;
+        return {
+            ...DEFAULT_DATA
+        };
+    }
 
+    try {
+
+        return JSON.parse(save);
+
+    } catch {
+
+        return {
+            ...DEFAULT_DATA
+        };
+    }
 }
+
+// =========================
+// GAME DATA
+// =========================
+
+let data = loadData();
+
+// =========================
+// SAVE DATA
+// =========================
+
+function saveData() {
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(data)
+
+    );
+}
+
+// =========================
+// RESET DATA
+// =========================
+
+function resetData() {
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+    location.reload();
+}
+
+// =========================
+// UPDATE UI
+// =========================
+
+function updateUI() {
+
+    document.getElementById("level").textContent =
+        data.level;
+
+    document.getElementById("galleons").textContent =
+        data.galleons;
+
+    document.getElementById("housePoints").textContent =
+        data.housePoints;
+
+    document.getElementById("studyMinutes").textContent =
+        data.studyMinutes;
+}
+
+// =========================
+// TEST STUDY SESSION
+// =========================
 
 document
 .getElementById("startBtn")
 .addEventListener("click", () => {
 
-data.studyMinutes += 25;
+    data.studyMinutes += 25;
 
-data.housePoints += 10;
+    data.housePoints += 10;
 
-data.galleons += 20;
+    data.galleons += 20;
 
-updateUI();
+    saveData();
 
-alert("🚂 Study Session Started!");
+    updateUI();
 
 });
+
+// =========================
+// INITIAL LOAD
+// =========================
 
 updateUI();
