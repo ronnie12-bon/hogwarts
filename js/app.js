@@ -138,3 +138,125 @@ document
     }
 
 });
+
+// =========================
+// TIMER
+// =========================
+
+let minutes = 25;
+let seconds = 0;
+
+let running = false;
+
+let interval = null;
+
+const timerElement =
+document.getElementById("timer");
+
+function updateTimer() {
+
+    if (!timerElement)
+        return;
+
+    timerElement.textContent =
+
+        String(minutes)
+        .padStart(2,"0")
+
+        +
+
+        ":"
+
+        +
+
+        String(seconds)
+        .padStart(2,"0");
+}
+
+function startTimer() {
+
+    if (running)
+        return;
+
+    running = true;
+
+    interval = setInterval(() => {
+
+        if (
+            minutes === 0 &&
+            seconds === 0
+        ) {
+
+            clearInterval(interval);
+
+            running = false;
+
+            alert(
+                "✨ Study Session Complete!"
+            );
+
+            return;
+        }
+
+        if (seconds === 0) {
+
+            minutes--;
+
+            seconds = 59;
+
+        } else {
+
+            seconds--;
+        }
+
+        updateTimer();
+
+    },1000);
+}
+
+function pauseTimer() {
+
+    running = false;
+
+    clearInterval(interval);
+}
+
+function resetTimer() {
+
+    pauseTimer();
+
+    minutes = 25;
+
+    seconds = 0;
+
+    updateTimer();
+}
+
+updateTimer();
+
+const startBtn =
+document.getElementById("startTimer");
+
+const pauseBtn =
+document.getElementById("pauseTimer");
+
+const resetBtn =
+document.getElementById("resetTimer");
+
+if(startBtn)
+startBtn.addEventListener(
+"click",
+startTimer
+);
+
+if(pauseBtn)
+pauseBtn.addEventListener(
+"click",
+pauseTimer
+);
+
+if(resetBtn)
+resetBtn.addEventListener(
+"click",
+resetTimer
+);
